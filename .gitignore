@@ -3,3 +3,4 @@ other/
 *.pyc
 /config.ini
 gallery/
+/.idea

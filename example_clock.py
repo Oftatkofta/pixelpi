@@ -1,5 +1,5 @@
 from screenfactory import create_screen
-from modules.clock import Clock
+from modules.clock2 import Clock2 as Clock
 import config
 import time
 import pygame
