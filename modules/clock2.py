@@ -54,12 +54,12 @@ class Clock2(Module):
 
         else:
             for s in range(now.second):
-                if s % 2 == 0:
-                    self.screen.pixel[(s) // 8][
-                        (y_position+15) - (2*s) % 8] = color
+                if (s // 4) % 2 == 0:
+                    self.screen.pixel[s // 4][
+                        15 - 2*(s % 8)] = color
                 else:
-                    self.screen.pixel[(2 * s) // 8][
-                        (y_position + 8) + (2 * s+1) % 8] = color
+                    self.screen.pixel[s // 4][
+                        8 + 2*(s % 4)] = color
 
     def draw(self, colon=True):
         self.screen.clear()
