@@ -1,5 +1,5 @@
 import pygame
-import collections
+import helpers
 from abstractscreen import AbstractScreen
 
 # Behaves like the actual LED screen, but shows the screen content on a computer screen
@@ -9,13 +9,18 @@ class VirtualScreen(AbstractScreen):
 		self.pixel_size = 30
 		
 		pygame.display.init()
-		self.screen = pygame.display.set_mode([width * self.pixel_size, height * self.pixel_size], 0)
+		self.screen = pygame.display.set_mode((width * self.pixel_size,
+											   height * self.pixel_size),
+											  pygame.NOFRAME)
+
 		self.surface = pygame.Surface(self.screen.get_size())	
-				
+
 	def update(self):
 		for y in range(self.height):
 			for x in range(self.width):
-				pygame.draw.rect(self.surface, self.pixel[x][y], ((x * self.pixel_size, y * self.pixel_size), (((x+1) * self.pixel_size), (y+1) * self.pixel_size)))
+				#colors are in GRB format on the LED strip, to display properly we need to convert to a RGB tupe
+				adjusted_color = helpers.int_to_rgb_color(self.pixel[x][y])
+				pygame.draw.rect(self.surface, adjusted_color, ((x * self.pixel_size, y * self.pixel_size), (((x+1) * self.pixel_size), (y+1) * self.pixel_size)))
 
 		self.screen.blit(self.surface, (0, 0))
 		pygame.display.flip()

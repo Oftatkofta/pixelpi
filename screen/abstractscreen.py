@@ -6,6 +6,7 @@ class AbstractScreen(object):
 		self.width = width
 		self.height = height
 
+		#Pixels stored as int
 		self.pixel = [[helpers.Color(0,0,0) for y in range(height)] for x in range(width)]
 	
 	def clear(self, color = helpers.Color(0,0,0)):
@@ -29,8 +30,8 @@ class AbstractScreen(object):
 			self.pixel = [[helpers.darken_color(frame[x][y], progress) for y in range(self.height)] for x in range(self.width)]
 			self.update()
 
-	def fade_in(self, duration):
+	def fade_in(self, duration=0.5):
 		self.fade(duration, True)
 
-	def fade_out(self, duration):
+	def fade_out(self, duration=0.5):
 		self.fade(duration, False)

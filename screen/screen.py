@@ -25,6 +25,7 @@ class Screen(AbstractScreen):
 		self.strip.show()
 
 	def update_brightness(self):
+		#Exponential brightnes with 9 levels 7-255 in 8-bit terms
 		self.strip.setBrightness(int(4 + 3.1 * (config.brightness + 1)**2))
 
 	def set_brightness(self, value):
