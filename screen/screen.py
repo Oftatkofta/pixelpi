@@ -17,11 +17,14 @@ class Screen(AbstractScreen):
 		instance = self	
 	
 	def update(self):
-		for y in range(self.height):
-			for x in range(self.width):
-				if y % 2 == 0:
-					self.strip.setPixelColor(y * self.width + x, self.pixel[x][y])
-				else: self.strip.setPixelColor(y * self.width + self.width - 1 - x, self.pixel[x][y])
+
+		for i in range(self.strip.numPixels()):
+			# find the x/y coordinates with modulo and floor division
+			x = i % self.width
+			y = i // self.height
+			# get and set the RGB values from the pixel in question
+			self.strip.setPixelColor(i, self.pixel[x][y])
+
 		self.strip.show()
 
 	def update_brightness(self):
