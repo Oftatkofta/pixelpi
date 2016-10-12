@@ -20,10 +20,28 @@ class Screen(AbstractScreen):
 
 		for i in range(self.strip.numPixels()):
 			# find the x/y coordinates with modulo and floor division
+			if (i//16) % 2 == 0:
+
+			x = 15 - (i % self.width)
+			y = i // self.height
+
+			else:
 			x = i % self.width
 			y = i // self.height
+
 			# get and set the RGB values from the pixel in question
+
 			self.strip.setPixelColor(i, self.pixel[x][y])
+
+			"""
+			(0,0) = strip[15]
+			(15,0)= strip[0]
+			(0,1)= strip[16]
+			(15,1)= strip[31]
+			(15,15)= strip[255]
+			"""
+
+
 
 		self.strip.show()
 
