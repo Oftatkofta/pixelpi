@@ -21,13 +21,14 @@ class Screen(AbstractScreen):
 		for i in range(self.strip.numPixels()):
 			# find the x/y coordinates with modulo and floor division
 			if (i//16) % 2 == 0:
-
-			x = 15 - (i % self.width)
-			y = i // self.height
+				#even rows
+				x = 15 - (i % self.width)
+				y = i // self.height
 
 			else:
-			x = i % self.width
-			y = i // self.height
+				#odd rows
+				x = i % self.width
+				y = i // self.height
 
 			# get and set the RGB values from the pixel in question
 
