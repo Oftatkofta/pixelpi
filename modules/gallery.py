@@ -27,11 +27,11 @@ class Gallery(Module):
 		if not os.path.exists(location):
 			raise Exception("Path " + location + " not found")
 		
-		filenames = [location + f for f in listdir(location) if f.endswith(".bmp")]
+		filenames = [location + f for f in listdir(location) if (f.endswith(".bmp") or f.endswith(".png"))]
 		filenames.sort()
 		
 		if len(filenames) == 0:
-			raise Exception("No bitmaps found in " + location)
+			raise Exception("No bitmaps or PNG's found in " + location)
 
 		return filenames
 
