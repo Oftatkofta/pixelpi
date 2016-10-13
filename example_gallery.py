@@ -4,7 +4,9 @@ import config
 
 screen = create_screen()
 
-gallery = Galley(screen, "animations/pacman")
+gallery = Galley(screen)
+gallery.start()
+
 while True:
 	if config.virtual_hardware:
 		pygame.time.wait(10)
