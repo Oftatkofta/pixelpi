@@ -4,7 +4,7 @@ import config
 
 screen = create_screen()
 
-gallery = Galley(screen)
+gallery = Gallery(screen)
 gallery.start()
 
 while True:
