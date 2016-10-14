@@ -1,3 +1,4 @@
+from __future__ import print_function
 from animation import *
 import time
 from os import listdir
@@ -16,7 +17,7 @@ class Gallery(Module):
 
 		self.images = [None for i in range(len(self.filenames))]
 		
-		self.interval = 5
+		self.interval = 2
 		self.position = 0
 
 		self.next_animation = time.time()
@@ -28,11 +29,11 @@ class Gallery(Module):
 		if not os.path.exists(location):
 			raise Exception("Path " + location + " not found")
 		
-		filenames = [location + f for f in listdir(location) if (f.endswith(".bmp") or f.endswith(".png"))]
+		filenames = [location + f for f in listdir(location)]
 		filenames.sort()
 		
 		if len(filenames) == 0:
-			raise Exception("No bitmaps or PNG's found in " + location)
+			raise Exception("No images found in " + location)
 
 		return filenames
 
@@ -48,8 +49,10 @@ class Gallery(Module):
 		except Exception:
 			print('Error loading ' + self.filenames[index])
 			raise
+
 		if image.size != (16,16):
-			image.thumbnail((16,16), resample=Image.BICUBIC)
+
+			image = image.resize((16,16), resample=Image.LANCZOS)
 		if image.mode != "RGB":
 			# avoid alpha channel for now
 			image = image.convert("RGB")

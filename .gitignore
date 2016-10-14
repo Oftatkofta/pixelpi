@@ -4,3 +4,5 @@ other/
 /config.ini
 gallery/
 /.idea
+
+.DS_Store
