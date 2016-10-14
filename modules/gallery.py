@@ -1,7 +1,8 @@
 from animation import *
 import time
 from os import listdir
-import pygame.image
+from helpers import Color
+from PIL import Image
 import input
 
 class Gallery(Module):
@@ -43,14 +44,17 @@ class Gallery(Module):
 
 	def load(self, index):
 		try:
-			bmp = pygame.image.load(self.filenames[index])
+			image = Image.open(self.filenames[index])
 		except Exception:
 			print('Error loading ' + self.filenames[index])
 			raise
+		if image.size != (16,16):
+			image.thumbnail((16,16), resample=Image.BICUBIC)
+		if image.mode != "RGB":
+			# avoid alpha channel for now
+			image = image.convert("RGB")
 
-		pixel_array = pygame.PixelArray(bmp)
-		
-		self.images[index] = [[pixel_array[x, y] for y in range(16)] for x in range(16)]
+		self.images[index] = [[image.getpixel((x, y)) for y in range(16)] for x in range(16)]
 
 	def draw(self):
 		self.screen.pixel = self.images[self.position]

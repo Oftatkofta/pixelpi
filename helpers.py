@@ -1,8 +1,12 @@
 import collections
 import colorsys
 
-def Color(r, g, b):
-	return r * 65536 + g * 256 + b
+def Color(red, green, blue, white = 0):
+    """Convert the provided red, green, blue color to a 24-bit color value.
+    Each color component should be a value 0-255 where 0 is the lowest intensity
+    and 255 is the highest intensity.
+    """
+    return (white << 24) | (green << 16)| (red << 8) | blue
 
 RGBColor = collections.namedtuple('RGBColor', 'r g b')
 

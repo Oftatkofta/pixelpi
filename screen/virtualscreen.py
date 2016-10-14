@@ -19,8 +19,8 @@ class VirtualScreen(AbstractScreen):
 		for y in range(self.height):
 			for x in range(self.width):
 				#colors are in GRB format on the LED strip, to display properly we need to convert to a RGB tupe
-				adjusted_color = helpers.int_to_rgb_color(self.pixel[x][y])
-				pygame.draw.rect(self.surface, adjusted_color, ((x * self.pixel_size, y * self.pixel_size), (((x+1) * self.pixel_size), (y+1) * self.pixel_size)))
+				#adjusted_color = helpers.int_to_rgb_color(self.pixel[x][y])
+				pygame.draw.rect(self.surface, self.pixel[x][y], ((x * self.pixel_size, y * self.pixel_size), (((x+1) * self.pixel_size), (y+1) * self.pixel_size)))
 
 		self.screen.blit(self.surface, (0, 0))
 		pygame.display.flip()
