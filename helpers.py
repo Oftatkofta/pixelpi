@@ -6,7 +6,8 @@ def Color(red, green, blue, white = 0):
     Each color component should be a value 0-255 where 0 is the lowest intensity
     and 255 is the highest intensity.
     """
-    return (white << 24) | (green << 16)| (red << 8) | blue
+    #return (white << 24) | (green << 16)| (red << 8) | blue
+    return (green << 16) | (red << 8) | blue
 
 RGBColor = collections.namedtuple('RGBColor', 'r g b')
 
