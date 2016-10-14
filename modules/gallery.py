@@ -41,7 +41,7 @@ class Gallery(Module):
 		self.position = (self.position + amount) % len(self.filenames)
 		if self.images[self.position] == None:
 			self.load(self.position)
-			print("loading: ",self.filenames[self.position])
+			print("loading: ", self.filenames[self.position])
 		self.draw()
 
 	def load(self, index):
@@ -52,11 +52,14 @@ class Gallery(Module):
 			raise
 
 		if image.size != (16,16):
-
+			print("resizing:", self.filenames[index])
 			image = image.resize((16,16), resample=Image.LANCZOS)
 		if image.mode != "RGB":
 			# avoid alpha channel for now
+			print("converting:", self.filenames[index], image.mode)
 			image = image.convert("RGB")
+			image = image.copy()
+
 
 		self.images[index] = [[image.getpixel((x, y)) for y in range(16)] for x in range(16)]
 
