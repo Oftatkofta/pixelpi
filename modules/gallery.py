@@ -41,7 +41,7 @@ class Gallery(Module):
 		self.position = (self.position + amount) % len(self.filenames)
 		if self.images[self.position] == None:
 			self.load(self.position)
-			print("loading: ",self.filenames[index])
+			print("loading: ",self.filenames[self.position])
 		self.draw()
 
 	def load(self, index):
