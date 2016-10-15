@@ -5,6 +5,7 @@ from os import listdir
 from helpers import Color, rgb_tuple_to_int
 from PIL import Image
 import input
+from random import shuffle
 
 class Gallery(Module):
 	def __init__(self, screen):
@@ -30,7 +31,9 @@ class Gallery(Module):
 			raise Exception("Path " + location + " not found")
 		
 		filenames = [location + f for f in listdir(location)]
-		filenames.sort()
+
+		#randomize order of files each time
+		shuffle(filenames)
 		
 		if len(filenames) == 0:
 			raise Exception("No images found in " + location)
