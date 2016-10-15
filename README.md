@@ -48,9 +48,13 @@ The `Screen.py` script expects your LED strip to be laid out like this:
 ...
 ```
 
-![Laser cut grid](https://github.com/Oftatkofta/pixelpi/blob/master/readme/top_LEDs.jpg)
+![LED layout](https://github.com/Oftatkofta/pixelpi/blob/master/readme/top_LEDs.jpg)
 
 If you have a different setup, you can edit the `Screen.py` file to translate the 16x16 matrix on your LED strip.
+
+Power is running through copper pins tying two strips together on the front and out on to the back side.
+
+![GameFrame back](https://github.com/Oftatkofta/pixelpi/blob/master/readme/back_power_and_data.jpg)
 
 ## Software
 
