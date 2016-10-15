@@ -85,7 +85,7 @@ class Pacman(Module):
 					self.screen.pixel[x][y] = self.wall_color
 	
 	def draw(self, update = True):
-		self.screen.clear()
+		self.screen.clear_pixel()
 		self.draw_walls()
 
 		for pill in self.pills:

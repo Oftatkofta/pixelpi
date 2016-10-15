@@ -60,7 +60,7 @@ class Clock(Module):
 
 
 	def draw(self, colon = True):
-		self.screen.clear()
+		self.screen.clear_pixel()
 		self.draw_time(Color(255, 255, 255), colon)
 		self.screen.update()
 	

@@ -50,7 +50,7 @@ class Tetris(Module):
 		self.key_queue = []
 	
 	def draw_background(self):
-		self.screen.clear(Color(255,255,255))
+		self.screen.clear_pixel(Color(255, 255, 255))
 		
 	def draw_blocks(self):
 		for y in range(self.level_height):
@@ -80,7 +80,7 @@ class Tetris(Module):
 					self.screen.pixel[x + (self.screen.width - self.level_width) / 2 + pos.x][y + (self.screen.height - self.level_height) / 2 + pos.y] = dark_color
 	
 	def draw(self):
-		self.screen.clear()
+		self.screen.clear_pixel()
 		self.draw_background()
 		self.draw_blocks()
 		if self.current_tetromino != None:

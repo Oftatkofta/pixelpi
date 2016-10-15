@@ -38,7 +38,7 @@ class Snake(Module):
 		t = 1
 		start = time.clock()
 		while time.clock() < start + t:
-			self.screen.clear()
+			self.screen.clear_pixel()
 			self.screen.pixel[self.snake[0].x][self.snake[0].y] = darken_color(self.head_color, (time.clock() - start)**2 / t)
 			self.screen.update()
 		
@@ -62,7 +62,7 @@ class Snake(Module):
 		while time.clock() < start + t:
 			if not self.running:
 				return
-			self.screen.clear()
+			self.screen.clear_pixel()
 			self.screen.pixel[self.snake[0].x][self.snake[0].y] = darken_color(self.head_color, (1 - (time.clock() - start) / t)**2)
 			self.screen.update()
 	
@@ -91,7 +91,7 @@ class Snake(Module):
 			self.snake[0] = next
 	
 	def draw(self):
-		self.screen.clear()
+		self.screen.clear_pixel()
 		
 		if self.food != None:
 			t = 0.6

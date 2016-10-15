@@ -108,7 +108,7 @@ class TextScroller(Module):
 
 
     def draw(self):
-        self.screen.clear()
+        self.screen.clear_pixel()
         self.draw_text()
         self.screen.update()
 

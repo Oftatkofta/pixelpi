@@ -61,7 +61,7 @@ class Menu(object):
 		if self.module != None:
 			return
 
-		self.screen.clear()
+		self.screen.clear_pixel()
 		self.draw_scrollbar()
 
 		self.draw_on_screen(8 + int(self.offset * 12), 8, self.zoom, self.items[self.index].get_preview())

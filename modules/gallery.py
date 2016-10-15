@@ -2,7 +2,7 @@ from __future__ import print_function
 from animation import *
 import time
 from os import listdir
-from helpers import Color
+from helpers import Color, rgb_tuple_to_int
 from PIL import Image
 import input
 
@@ -51,6 +51,7 @@ class Gallery(Module):
 			print('Error loading ' + self.filenames[index])
 			raise
 
+
 		if image.size != (16,16):
 			print("resizing:", self.filenames[index])
 			image = image.resize((16,16), resample=Image.LANCZOS)
@@ -58,10 +59,10 @@ class Gallery(Module):
 			# avoid alpha channel for now
 			print("converting:", self.filenames[index], image.mode)
 			image = image.convert("RGB")
-			image = image.copy()
 
 
-		self.images[index] = [[image.getpixel((x, y)) for y in range(16)] for x in range(16)]
+
+		self.images[index] = [[rgb_tuple_to_int(image.getpixel((x, y))) for y in range(16)] for x in range(16)]
 
 	def draw(self):
 		self.screen.pixel = self.images[self.position]

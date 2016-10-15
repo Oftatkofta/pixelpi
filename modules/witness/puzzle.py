@@ -99,7 +99,7 @@ class Puzzle:
 			self.features.append(colorblocks)
 
 	def draw(self, screen):
-		screen.clear(self.background_color)
+		screen.clear_pixel(self.background_color)
 
 		for x in range(self.width):
 			for y in range(self.height):

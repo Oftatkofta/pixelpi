@@ -62,7 +62,7 @@ class Clock2(Module):
                         8 + 2*(s % 4)] = color
 
     def draw(self, colon=True):
-        self.screen.clear()
+        self.screen.clear_pixel()
         self.draw_time(Color(255, 255, 255), colon)
         self.screen.update()
 

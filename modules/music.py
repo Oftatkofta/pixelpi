@@ -46,7 +46,7 @@ class Music(Module):
 		return self.data[lower] * fraction + self.data[upper] * (1 - fraction)
 
 	def draw(self):
-		self.screen.clear()
+		self.screen.clear_pixel()
 		for x in range(16):
 			value = self.get_value(x) * 16.0 / 254.0
 			for y in range(int(value)):

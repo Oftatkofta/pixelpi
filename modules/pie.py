@@ -8,7 +8,7 @@ class Pie(Module):
 		super(Pie, self).__init__(screen)
 
 	def draw(self):
-		self.screen.clear()
+		self.screen.clear_pixel()
 		
 		start = time.clock() * 2.77 + math.sin(time.clock())
 		end = time.clock() * 7.35 + 0.5 * math.pi

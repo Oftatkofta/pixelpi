@@ -1,18 +1,33 @@
 import helpers
 import time
+from PIL import Image
 
 class AbstractScreen(object):
 	def __init__(self, width = 16, height = 16):
 		self.width = width
 		self.height = height
 
-		#Pixels stored as int
+		#Pixels to shift out to the strip stored as int
 		self.pixel = [[helpers.Color(0,0,0) for y in range(height)] for x in range(width)]
-	
-	def clear(self, color = helpers.Color(0,0,0)):
+
+		#A PIL-Image object to use for complex image manipulations
+		self.stage = Image.new("RGB", (width, height))
+
+
+	def clear_pixel(self, color = helpers.Color(0, 0, 0)):
 		for x in range(self.width):
 			for y in range(self.height):
 				self.pixel[x][y] = color
+
+	def clear_stage(self):
+		self.stage = Image.new("RGB", (width, height))
+
+	def stage(self):
+		#moves the pixels from the staging image to self.pixel
+		for x in range(self.width):
+			for y in range(self.height):
+				px = helpers.rgb_tuple_to_int(self.stage.getpixel((x,y)))
+				self.pixel[x][y] = px
 
 	def update(self):
 		pass
