@@ -10,7 +10,9 @@ The project is inspired by and compatible to Jeremy Williams' [Game Frame](http:
 
 ## Hardware
 
-Since I'm cheap I only buy what I absolutely have to. One of those things was laser cut cardboard inserts, because it is impossible to get right by hand (I tried...a lot). My original plan was to manually cut the PVC board for this, but it has to be completely straight, otherwise it just looks bad.
+Since I'm cheap I only buy what I absolutely have to. One of those things was laser cut cardboard inserts, because it is impossible to get right by hand (I tried...a lot). My original plan was to manually cut the PVC board for this, but it has to be completely straight, otherwise it just looks bad. The grid design .pdf file is available in the /readme directory of the repo.
+
+![Laser cut grid](https://github.com/Oftatkofta/pixelpi/blob/master/readme/laser_cut_grid.jpg)
 
 - 300 LEDs, WS2812B, 60/m, 330 NOK (37 €)
 - Frame found in dumpster and cut to size -free
@@ -21,7 +23,7 @@ Since I'm cheap I only buy what I absolutely have to. One of those things was la
 - Laser cut 1.4 mm white cardboard for the grid from RazorLAB, 412 NOK (46 €)
 - Level shifter, 11 NOK (1 €)
 - White PVC board for diffuser/screen,  129 NOK (14 €)
-- Wire, solder, hot glue, heat shrink tube, etc
+- Wire, solder, hot glue, capacitors, etc
 
 (1452 NOK total, about €160 / $177)
 
@@ -36,7 +38,7 @@ You can edit the `Screen.py` file to default to the LED strip settings you used 
 
 ### LED layout
 
-The `Screen.py` script expects your LED strip to be layed out like this:
+The `Screen.py` script expects your LED strip to be laid out like this:
 
 ```
 <- <- <- <- <- <- <- <- <- <- <- <- <- <- <- <-
@@ -46,12 +48,14 @@ The `Screen.py` script expects your LED strip to be layed out like this:
 ...
 ```
 
+![Laser cut grid](https://github.com/Oftatkofta/pixelpi/blob/master/readme/top_LEDs.jpg)
+
 If you have a different setup, you can edit the `Screen.py` file to translate the 16x16 matrix on your LED strip.
 
 ## Software
 
 To set up the software, clone this repository on your Raspberry Pi. Rename the file `config.ini.example` to `config.ini`.
-Make sure, the neopixel, pillow(PIL), and Pygame libraries are installed.
+Make sure, the neopixel, pillow(PIL), noise (for fire module), and Pygame libraries are installed.
 This project uses Python 2.7.
 
 ### Animations
@@ -69,3 +73,22 @@ The file `menu.py` provides a visual menu to select from the available modules s
 
 ### Virtual hardware
 You can test all software without a Raspberry Pi, Gamepad or LED matrix. To do so, set up the software as described above and edit the `config.ini` file. Set `virtualhardware` to true. Try to run `menu.py`, a window with a simulated screen should open. Note that this requires `pygame` which you may need to install.
+
+### Updates to original pixelpi
+
+- text scrolling
+- PNG images
+- PIL/Pillow backend for image handling
+- automatic image resizing
+- a new funky 24-hour clock module
+- a 3x7 monospaced font for text and numbers
+
+###TODO's:
+- automatic animation loading from sprite sheets
+- animated .GIFs
+- "panning" large images
+- "next bus timer"
+- Conway's game of life
+- web interface
+- something cool you suggest?
+
