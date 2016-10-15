@@ -34,13 +34,12 @@ Then copy this repository somewhere to the SD card, copy your andimations to the
 
 You can edit the `Screen.py` file to default to the LED strip settings you used in the neopixel tutorial (especially pin and brightness).
 
-I'm using a Raspberry Pi Model B, if you want to use a Raspberry Pi 2 (B), try  [this fork](https://github.com/richardghirst/rpi_ws281x) of the rpi_ws281x module.
-
 ### LED layout
 
 The `Screen.py` script expects your LED strip to be layed out like this:
 
 ```
+<- <- <- <- <- <- <- <- <- <- <- <- <- <- <- <-
 -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> ->
 <- <- <- <- <- <- <- <- <- <- <- <- <- <- <- <-
 -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> ->
@@ -52,7 +51,7 @@ If you have a different setup, you can edit the `Screen.py` file to translate th
 ## Software
 
 To set up the software, clone this repository on your Raspberry Pi. Rename the file `config.ini.example` to `config.ini`.
-Make sure, the neopixel library is installed.
+Make sure, the neopixel, pillow(PIL), and Pygame libraries are installed.
 This project uses Python 2.7.
 
 ### Animations
