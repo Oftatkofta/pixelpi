@@ -3,7 +3,7 @@ This project has been forked from [marian42](https://github.com/marian42/pixelpi
 
 Games and Animations on 16x16 LEDs
 
-![16x16 LED matrix](https://github.com/oftatkofta/pixelpi/readme/my_gameFrame.jpg)
+![16x16 LED matrix](https://github.com/Oftatkofta/pixelpi/blob/master/readme/my_gameFrame.jpg)
 
 This is a collection of python scripts that run animations and games on a 16x16 matrix of WS2812B LEDs (aka Neopixel).
 The project is inspired by and compatible to Jeremy Williams' [Game Frame](http://ledseq.com).
