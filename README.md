@@ -1,27 +1,29 @@
 # pixelpi
+This project has been forked from [marian42](https://github.com/marian42/pixelpi), this readme has also been extensively copied from there.
+
 Games and Animations on 16x16 LEDs
 
-![16x16 LED matrix](https://i.imgur.com/jsguEYE.jpg)
+![16x16 LED matrix](https://github.com/oftatkofta/pixelpi/readme/my_gameFrame.jpg)
 
 This is a collection of python scripts that run animations and games on a 16x16 matrix of WS2812B LEDs (aka Neopixel).
 The project is inspired by and compatible to Jeremy Williams' [Game Frame](http://ledseq.com).
 
 ## Hardware
 
-Here is a [set of photos](https://imgur.com/a/Ql25S) of the hardware I use and a parts list with approximate costs:
-- 300 LEDs, WS2812B, 60/m 38 €
-- Frame 32 €
-- Raspberry Pi Model B 25€
-- Power Supply 5V 10A 12,07 €
-- Wifi-Stick 10 €
-- Eboy animations from ledseq.com 9€
-- Cardboard for the grid 2 €
-- Level shifter 1 €
-- 5V jack 1 €
-- Plywood 1 €
-- Wire, solder, connectors, heat shrink tube, etc
+Since I'm cheap I only buy what I absolutely have to. One of those things was laser cut cardboard inserts, because it is impossible to get right by hand (I tried...a lot). My original plan was to manually cut the PVC board for this, but it has to be completely straight, otherwise it just looks bad.
 
-(131€ total, about $150)
+- 300 LEDs, WS2812B, 60/m, 330 NOK (37 €)
+- Frame found in dumpster and cut to size -free
+- 30x30 cm 3 mm MDF board found in dumpster -free
+- Raspberry Pi2 Model B, 299 NOK (33€)
+- Power Supply 5V 25A 125W, 171 NOK (19 €), a modified ATX-PSU will also do.
+- Wifi-dongle, 100 NOK (11 €)
+- Laser cut 1.4 mm white cardboard for the grid from RazorLAB, 412 NOK (46 €)
+- Level shifter, 11 NOK (1 €)
+- White PVC board for diffuser/screen,  129 NOK (14 €)
+- Wire, solder, hot glue, heat shrink tube, etc
+
+(1452 NOK total, about €160 / $177)
 
 ### LED strips
 
