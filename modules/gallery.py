@@ -17,7 +17,7 @@ class Gallery(Module):
 
 		self.images = [None for i in range(len(self.filenames))]
 		
-		self.interval = 5
+		self.interval = 10
 		self.position = 0
 
 		self.next_animation = time.time()
@@ -39,7 +39,7 @@ class Gallery(Module):
 
 	def move(self, amount):
 		self.position = (self.position + amount) % len(self.filenames)
-		self.screen.fade_out(0.5)
+		self.screen.fade_out(1)
 		if self.images[self.position] == None:
 			self.load(self.position)
 			print("loading: ", self.filenames[self.position])
@@ -67,7 +67,8 @@ class Gallery(Module):
 
 	def draw(self):
 		self.screen.pixel = self.images[self.position]
-		self.screen.update()
+		self.screen.fade_in(1)
+		#self.screen.update()
 
 	def tick(self):
 		if not self.paused and time.time() > self.next_animation:
