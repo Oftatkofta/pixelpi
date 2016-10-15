@@ -17,7 +17,7 @@ class Gallery(Module):
 
 		self.images = [None for i in range(len(self.filenames))]
 		
-		self.interval = 2
+		self.interval = 5
 		self.position = 0
 
 		self.next_animation = time.time()
@@ -39,6 +39,7 @@ class Gallery(Module):
 
 	def move(self, amount):
 		self.position = (self.position + amount) % len(self.filenames)
+		self.screen.fade_out(0.5)
 		if self.images[self.position] == None:
 			self.load(self.position)
 			print("loading: ", self.filenames[self.position])
