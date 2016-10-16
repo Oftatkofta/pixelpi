@@ -4,6 +4,7 @@ import time
 import ConfigParser
 from helpers import *
 from modules import Module
+from PIL import Image
 
 class Animation(Module):
 	def __init__(self, screen, folder, interval = None, autoplay = True):
@@ -48,13 +49,15 @@ class Animation(Module):
 		i = 0
 		while os.path.isfile(self.folder + str(i) + '.bmp'):
 			try:
-				bmp = pygame.image.load(self.folder + str(i) + '.bmp')
+				#bmp = pygame.image.load(self.folder + str(i) + '.bmp')
+				img = Image.open(self.folder + str(i) + '.bmp')
 			except Exception:
 				print('Error loading ' + str(i) + '.bmp from ' + self.folder)
 				raise
-			pixel_array = pygame.PixelArray(bmp)
+
+			#pixel_array = pygame.PixelArray(bmp)
 			
-			frame = [[pixel_array[x, y] for y in range(16)] for x in range(16)]
+			frame = [[rgb_tuple_to_int(img.getpixel((x, y))) for y in range(16)] for x in range(16)]
 			self.frames.append(frame)
 			
 			i += 1

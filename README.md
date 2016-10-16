@@ -23,9 +23,10 @@ Since I'm cheap I only buy what I absolutely have to. One of those things was la
 - Laser cut 1.4 mm white cardboard for the grid from RazorLAB, 412 NOK (46 €)
 - Level shifter, 11 NOK (1 €)
 - White PVC board for diffuser/screen,  129 NOK (14 €)
+- eBoy animation pack from www.ledseq.com, 86 NOK (10 $)
 - Wire, solder, hot glue, capacitors, etc
 
-(1452 NOK total, about €160 / $177)
+(1538 NOK total, about €169 / $187)
 
 ### LED strips
 
