@@ -21,6 +21,33 @@ class CycleAll(Module):
 		self.history_position = -1
 		self.next_animation = time.time()
 
+	self.filenames = self.load_filenames("gallery")
+
+	self.images = [None for i in range(len(self.filenames))]
+
+	self.interval = 10
+	self.position = 0
+
+	self.next_animation = time.time()
+
+
+def load_filenames(self, location):
+	if location[:1] != '/':
+		location = location + '/'
+
+	if not os.path.exists(location):
+		raise Exception("Path " + location + " not found")
+
+	filenames = [location + f for f in listdir(location)]
+
+	# randomize order of files each time
+	shuffle(filenames)
+
+	if len(filenames) == 0:
+		raise Exception("No images found in " + location)
+
+	return filenames
+
 	def load_subfolders(self, location):
 		if location[:1] != '/':
 			location = location + '/'
