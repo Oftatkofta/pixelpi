@@ -24,7 +24,7 @@ class StillImage(Module):
 
 		if image.mode != "RGB":
 			# avoid alpha channel and binary image troubles for now
-			print("converting:", self.filename[index], image.mode)
+			print("converting:", self.filename, image.mode)
 			image = image.convert("RGB")
 
 

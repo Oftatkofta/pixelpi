@@ -1,52 +1,51 @@
 from animation import *
+from still_image import *
 import time
 import os
 import random
 import input
 
 class CycleAll(Module):
-	def __init__(self, screen, location, interval = 20):
+	def __init__(self, screen, interval = 20):
 		super(CycleAll, self).__init__(screen)
 
 		input.on_press.append(self.key_press)
 		self.paused = False
 		
-		self.subfolders = self.load_subfolders(location)
+		self.animation_subfolders = self.load_subfolders("animations")
+		self.still_filenames = self.load_filenames("gallery")
 
-		self.animations = [None for i in range(len(self.subfolders))]
-		self.stills = [None for i in range(len(self.subfolders))]
+		self.items = self.animation_subfolders + self.still_filenames
+		self.no_display_objects = len(self.items)
+		self.display_objects = [None for i in range(self.no_display_objects)]
+
 		self.interval = interval
 
 		self.history = []
 		self.history_position = -1
 		self.next_animation = time.time()
 
-	self.filenames = self.load_filenames("gallery")
+		self.position = 0
 
-	self.images = [None for i in range(len(self.filenames))]
-
-	self.interval = 10
-	self.position = 0
-
-	self.next_animation = time.time()
+		self.next_animation = time.time()
 
 
-def load_filenames(self, location):
-	if location[:1] != '/':
-		location = location + '/'
+	def load_filenames(self, location):
+		if location[:1] != '/':
+			location = location + '/'
 
-	if not os.path.exists(location):
-		raise Exception("Path " + location + " not found")
+		if not os.path.exists(location):
+			raise Exception("Path " + location + " not found")
 
-	filenames = [location + f for f in listdir(location)]
+		filenames = [(location+f, "StillImage") for f in listdir(location)]
 
-	# randomize order of files each time
-	shuffle(filenames)
+		# randomize order of files each time
+		shuffle(filenames)
 
-	if len(filenames) == 0:
-		raise Exception("No images found in " + location)
+		if len(filenames) == 0:
+			raise Exception("No images found in " + location)
 
-	return filenames
+		return filenames
 
 	def load_subfolders(self, location):
 		if location[:1] != '/':
@@ -54,7 +53,7 @@ def load_filenames(self, location):
 
 		if not os.path.exists(location):
 			raise Exception("Path " + location + " not found")
-		subfolders = [x[0] for x in os.walk(location)]
+		subfolders = [(x[0], "Animation") for x in os.walk(location)]
 
 		subfolders = subfolders[1:]
 
@@ -68,9 +67,20 @@ def load_filenames(self, location):
 			return None
 
 		index = self.history[self.history_position]
-		if self.animations[index] == None:
-			self.animations[index] = Animation(self.screen, self.subfolders[index])
-		return self.animations[index]
+
+		if self.display_objects[index] == None:
+
+			if self.items[index][1] == "StillImage":
+
+				self.display_objects[index] = StillImage(self.screen,
+				                                        self.items[index][0])
+
+			if self.items[index][1] == "Animation":
+
+				self.display_objects[index] = Animation(self.screen,
+				                                        self.items[index][0])
+
+		return self.display_objects[index]
 		
 	def next(self, pick_random):
 		if self.get_current_animation() != None:			
@@ -82,10 +92,10 @@ def load_filenames(self, location):
 			index = self.history[self.history_position]
 		else:
 			if pick_random:
-				index = random.randint(0, len(self.animations) - 1)
+				index = random.randint(0, len(self.display_objects) - 1)
 				self.history_position += 1
 			else:
-				index = (self.history[self.history_position] + 1) % len(self.animations)
+				index = (self.history[self.history_position] + 1) % len(self.display_objects)
 				self.history_position += 1
 			self.history.append(index)	
 
