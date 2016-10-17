@@ -67,12 +67,13 @@ class Animation(Module):
 	
 	def load_single(self):
 		self.frames = []
-		bmp = pygame.image.load(self.folder + '0.bmp')
-		framecount = bmp.get_height() / 16
-		pixel_array = pygame.PixelArray(bmp)
+		img = Image.open(self.folder + '0.bmp')
+
+		#get framecount from height
+		framecount = img.size[1] / 16
 			
 		for index in range(framecount):
-			frame = [[pixel_array[x, y + 16 * index] for y in range(16)] for x in range(16)]
+			frame = [[rgb_tuple_to_int(img.getpixel((x, y + 16 * index))) for y in range(16)] for x in range(16)]
 			self.frames.append(frame)
 	
 	def load_interval(self):

@@ -4,7 +4,7 @@ import config
 
 screen = create_screen()
 
-animation = Animation(screen, "animations/die")
+animation = Animation(screen, "animations/titanic")
 while True:
 	if config.virtual_hardware:
 		pygame.time.wait(10)
