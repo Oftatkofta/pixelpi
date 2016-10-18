@@ -6,7 +6,11 @@ import random
 import input
 
 class CycleAll(Module):
-	def __init__(self, screen, interval = 20):
+	"""
+	Creates lists of different module objects and displays them randomly
+
+	"""
+	def __init__(self, screen, interval = 20, fadetime = 0.5):
 		super(CycleAll, self).__init__(screen)
 
 		input.on_press.append(self.key_press)
@@ -15,11 +19,12 @@ class CycleAll(Module):
 		self.animation_subfolders = self.load_subfolders("animations")
 		self.still_filenames = self.load_filenames("gallery")
 
-		self.items = self.animation_subfolders + self.still_filenames
-		self.no_display_objects = len(self.items)
+		self.items_to_load = self.animation_subfolders + self.still_filenames
+		self.no_display_objects = len(self.items_to_load)
 		self.display_objects = [None for i in range(self.no_display_objects)]
 
 		self.interval = interval
+		self.fadetime = fadetime
 
 		self.history = []
 		self.history_position = -1
@@ -70,15 +75,18 @@ class CycleAll(Module):
 
 		if self.display_objects[index] == None:
 
-			if self.items[index][1] == "StillImage":
+			if self.items_to_load[index][1] == "StillImage":
 
 				self.display_objects[index] = StillImage(self.screen,
-				                                        self.items[index][0])
+				                                         self.items_to_load[index][0],
+				                                         fadetime=self.fadetime)
 
-			if self.items[index][1] == "Animation":
+			if self.items_to_load[index][1] == "Animation":
 
 				self.display_objects[index] = Animation(self.screen,
-				                                        self.items[index][0])
+				                                        self.items_to_load[index][0],
+				                                        autoplay=False,
+				                                        fadetime=self.fadetime)
 
 		return self.display_objects[index]
 		
@@ -87,17 +95,24 @@ class CycleAll(Module):
 			self.get_current_animation().stop()
 		
 		
-		if self.history_position < len(self.history) - 1:
-			self.history_position += 1
-			index = self.history[self.history_position]
+		if len(self.history) > 100:
+			#Don't save an infinite history, 50-100 items seems reasonable
+			del self.history[:50]
+			self.history_position -= 50
+
+
 		else:
 			if pick_random:
 				index = random.randint(0, len(self.display_objects) - 1)
-				self.history_position += 1
+
 			else:
-				index = (self.history[self.history_position] + 1) % len(self.display_objects)
-				self.history_position += 1
-			self.history.append(index)	
+				if self.history_position == -1:
+					index = 0
+				else:
+					index = (self.history[self.history_position] + 1) % len(self.display_objects)
+				#self.history_position += 1
+			self.history_position += 1
+			self.history.append(index)
 
 		self.get_current_animation().start()
 		
@@ -105,6 +120,7 @@ class CycleAll(Module):
 		if not self.paused and time.time() > self.next_animation:
 			self.next(pick_random = True)
 			self.next_animation += self.interval
+
 		time.sleep(0.1)
 
 	def on_stop(self):

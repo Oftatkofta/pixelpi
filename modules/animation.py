@@ -7,7 +7,7 @@ from modules import Module
 from PIL import Image
 
 class Animation(Module):
-	def __init__(self, screen, folder, interval = None, autoplay = True):
+	def __init__(self, screen, folder, interval = None, autoplay = True, fadetime = 1):
 		super(Animation, self).__init__(screen)
 
 		if folder[:-1] != '/':
@@ -15,6 +15,7 @@ class Animation(Module):
 		
 		self.folder = folder
 		self.screen = screen
+		self.fadetime = fadetime
 		
 		try:
 			if self.is_single_file():
@@ -29,8 +30,12 @@ class Animation(Module):
 			print('Failed to load ' + folder)
 			raise
 		
-		self.screen.update()
-		
+		if self.fadetime != 0:
+			self.screen.fade_in(self.fadetime)
+		else:
+			self.screen.update()
+
+
 		if interval == None:
 			try:
 				self.interval = self.load_interval()
@@ -91,6 +96,11 @@ class Animation(Module):
 		
 	def on_start(self):
 		print('Starting ' + self.folder)
+
+
+	def on_stop(self):
+		if self.fadetime != 0:
+			self.screen.fade_out(self.fadetime)
 
 	def play_once(self):
 		for frame in self.frames:

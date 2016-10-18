@@ -7,10 +7,11 @@ from PIL import Image
 from random import shuffle
 
 class StillImage(Module):
-	def __init__(self, screen, filename):
+	def __init__(self, screen, filename, fadetime = 1):
 		super(StillImage, self).__init__(screen)
 
 		self.filename = filename
+		self.fadetime = fadetime
 
 		try:
 			image = Image.open(self.filename)
@@ -32,8 +33,11 @@ class StillImage(Module):
 
 	def draw(self):
 		self.screen.pixel = self.pixels
-		self.screen.fade_in(1)
-		#self.screen.update()
+
+		if self.fadetime != 0:
+			self.screen.fade_in(self.fadetime)
+		else:
+			self.screen.update()
 
 	def tick(self):
 		time.sleep(0.1)
@@ -42,4 +46,5 @@ class StillImage(Module):
 		self.draw()
 
 	def on_stop(self):
-		self.screen.fade_out(1)
+		if self.fadetime != 0:
+			self.screen.fade_out(self.fadetime)
