@@ -41,7 +41,7 @@ class Clock2(Module):
 				if pixel == (255, 255, 255):
 					self.screen.pixel[pos.x + x][pos.y + y] = color
 
-	def draw_time(self, color, second=True, y_position=0):
+	def draw_time(self, color, second=True, binary = True, y_position=0):
 		now = datetime.datetime.now()
 
 		self.draw_digit(now.hour // 10, Point(0, y_position), Color(0,0,255))
@@ -53,12 +53,21 @@ class Clock2(Module):
 			self.draw_digit(now.second // 10, Point(9, y_position+8), Color(0,40,0))
 			self.draw_digit(now.second % 10, Point(13, y_position+8), Color(0,40,0))
 
-		else:
-			for s in range(now.second):
-				if (s // 4) % 2 == 0:
-					self.screen.pixel[s // 4][15 - 2*(s % 8)] = color
-				else:
-					self.screen.pixel[s // 4][8 + 2*(s % 4)] = color
+		if binary:
+			binary_hour = bin(now.hour)[2:].zfill(6)
+			binary_minute = bin(now.minute)[2:].zfill(6)
+			binary_second = bin(now.second)[2:].zfill(6)
+			for i in range(6):
+				self.screen.pixel[i + 1][8] = binary_to_color(binary_hour[i])
+				self.screen.pixel[i + 1][11] = binary_to_color(binary_minute[i])
+				self.screen.pixel[i + 1][14] = binary_to_color(binary_second[i])
+
+		# else:
+		# 	for s in range(now.second):
+		# 		if (s // 4) % 2 == 0:
+		# 			self.screen.pixel[s // 4][15 - 2*(s % 8)] = color
+		# 		else:
+		# 			self.screen.pixel[s // 4][8 + 2*(s % 4)] = color
 
 	def draw(self):
 		self.screen.clear_pixel()
@@ -67,7 +76,7 @@ class Clock2(Module):
 
 	def tick(self):
 		self.draw()
-		time.sleep(0.5)
+		time.sleep(1)
 
 	def on_stop(self):
 		if self.fadetime != 0:

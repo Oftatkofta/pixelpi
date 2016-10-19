@@ -16,6 +16,12 @@ def int_to_rgb_color(c):
 	g = (c >> 16) & 255
 	return RGBColor(r, g, b)
 
+def binary_to_color(digit, one_color=Color(255,255,255), zero_color=Color(0,0,0)):
+	if int(digit):
+		return one_color
+	else:
+		return zero_color
+
 Point = collections.namedtuple('Point', 'x y')
 
 def hsv_to_color(hue, saturation, value):
