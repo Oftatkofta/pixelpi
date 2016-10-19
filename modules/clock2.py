@@ -58,9 +58,9 @@ class Clock2(Module):
 			binary_minute = bin(now.minute)[2:].zfill(6)
 			binary_second = bin(now.second)[2:].zfill(6)
 			for i in range(6):
-				self.screen.pixel[i + 1][8] = binary_to_color(binary_hour[i])
+				self.screen.pixel[i + 1][9] = binary_to_color(binary_hour[i])
 				self.screen.pixel[i + 1][11] = binary_to_color(binary_minute[i])
-				self.screen.pixel[i + 1][14] = binary_to_color(binary_second[i])
+				self.screen.pixel[i + 1][13] = binary_to_color(binary_second[i])
 
 		# else:
 		# 	for s in range(now.second):
