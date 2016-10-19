@@ -27,7 +27,7 @@ class CycleAll(Module):
 		self.animation_subfolders = self.load_subfolders("animations")
 		self.still_filenames = self.load_filenames("gallery")
 
-		self.items_to_load = self.animation_subfolders + self.still_filenames
+		self.items_to_load =["clock"] + self.animation_subfolders + self.still_filenames
 		self.no_display_objects = len(self.items_to_load)
 		self.display_objects = [None for i in range(self.no_display_objects)]
 
@@ -36,7 +36,7 @@ class CycleAll(Module):
 
 		# The first display_objects are special modules that are displayed
 		# more frequently
-		self.display_objects.insert(0, self.clock)
+		self.display_objects[0] = self.clock
 
 		self.interval = interval
 		self.fadetime = fadetime
@@ -144,7 +144,9 @@ class CycleAll(Module):
 				self.next_animation += self.interval
 
 			self.pick_clock = not self.pick_clock
+			self.total_displays += 1
 
+			print(self.total_displays)
 
 		time.sleep(0.1)
 
