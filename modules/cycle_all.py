@@ -7,7 +7,9 @@ import input
 
 class CycleAll(Module):
 	"""
-	Creates lists of different module objects and displays them randomly
+	Loads all files from
+	Creates lists of different module objects and displays them randomly.
+	Remembers a history of 50-100 in case
 
 	"""
 	def __init__(self, screen, interval = 20, fadetime = 0.5):

@@ -1,12 +1,12 @@
 from screenfactory import create_screen
-from modules.clock2 import Clock2 as Clock
+from modules.clock2 import Clock2
 import config
 import time
 import pygame
 
 screen = create_screen()
 
-clock = Clock(screen)
+clock = Clock2(screen)
 clock.start()
 
 while True:
