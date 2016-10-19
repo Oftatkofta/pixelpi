@@ -50,8 +50,8 @@ class Clock2(Module):
 		self.draw_digit(now.minute % 10, Point(13, y_position), Color(255,0,0))
 
 		if second:
-			self.draw_digit(now.second // 10, Point(9, y_position+8), Color(0,40,0))
-			self.draw_digit(now.second % 10, Point(13, y_position+8), Color(0,40,0))
+			self.draw_digit(now.second // 10, Point(9, y_position+8), Color(0,128,0))
+			self.draw_digit(now.second % 10, Point(13, y_position+8), Color(0,128,0))
 
 		if binary:
 			binary_hour = bin(now.hour)[2:].zfill(6)
