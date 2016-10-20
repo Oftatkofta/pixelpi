@@ -16,7 +16,20 @@ class Animation(Module):
 		self.folder = folder
 		self.screen = screen
 		self.fadetime = fadetime
-		
+
+		self.config = self.load_config()
+
+		if interval != None:
+			self.config["hold"] = int(interval)
+
+
+		"""
+		first try load config, if successful use it
+
+		determine if animation is horizontal or vertical
+		single_file AND (height == n*16 OR width == n*16):
+			translateX
+		"""
 		try:
 			if self.is_single_file():
 				self.load_single()
@@ -34,15 +47,6 @@ class Animation(Module):
 			self.screen.fade_in(self.fadetime)
 		else:
 			self.screen.update()
-
-
-		if interval == None:
-			try:
-				self.interval = self.load_interval()
-			except:
-				print('No interval info found.')
-				self.interval = 100
-		else: self.interval = interval
 		
 		self.pos = 0
 		if autoplay:
@@ -54,13 +58,13 @@ class Animation(Module):
 		i = 0
 		while os.path.isfile(self.folder + str(i) + '.bmp'):
 			try:
-				#bmp = pygame.image.load(self.folder + str(i) + '.bmp')
+
 				img = Image.open(self.folder + str(i) + '.bmp')
 			except Exception:
 				print('Error loading ' + str(i) + '.bmp from ' + self.folder)
 				raise
 
-			#pixel_array = pygame.PixelArray(bmp)
+
 			
 			frame = [[rgb_tuple_to_int(img.getpixel((x, y))) for y in range(16)] for x in range(16)]
 			self.frames.append(frame)
@@ -86,13 +90,37 @@ class Animation(Module):
 		cfg.read(self.folder + 'config.ini')
 		return cfg.getint('animation', 'hold')
 
+	def load_config(self):
+		out = {}
+		cfg = ConfigParser.ConfigParser()
+		try:
+			cfg.read(self.folder + "config.ini")
+			out["hold"] = cfg.getint("animation", "hold")
+			out["moveX"] = cfg.getint("translate", "moveX")
+			out["moveY"] = cfg.getint("translate", "moveY")
+			out["loop"] = cfg.getboolean("translate", "loop")
+			out["panoff"] = cfg.getboolean("translate", "panoff")
+			out["has_config"] = True
+
+		except:
+			print('No config found, using defaults')
+			out["hold"] = 100
+			out["moveX"] = 0
+			out["moveY"] = 0
+			out["loop"] = True
+			out["panoff"] = False
+			out["has_config"] = False
+
+		return out
+
+
 	def tick(self):
 		self.pos += 1
 		if self.pos >= len(self.frames):
 			self.pos = 0
 		self.screen.pixel = self.frames[self.pos]
 		self.screen.update()
-		time.sleep(self.interval / 1000.0)
+		time.sleep(self.config["hold"] / 1000.0)
 		
 	def on_start(self):
 		print('Starting ' + self.folder)
