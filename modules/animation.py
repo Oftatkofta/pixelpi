@@ -75,16 +75,25 @@ class Animation(Module):
 		return os.path.isfile(self.folder + '0.bmp') and not os.path.isfile(self.folder + '1.bmp')
 	
 	def load_single(self):
+
 		self.frames = []
 		img = Image.open(self.folder + '0.bmp')
 
-		#get framecount from height
-		framecount = img.size[1] / 16
-			
-		for index in range(framecount):
-			frame = [[rgb_tuple_to_int(img.getpixel((x, y + 16 * index))) for y in range(16)] for x in range(16)]
-			self.frames.append(frame)
-	
+		if img.size[1] >= img.size[0]:
+			framecount = img.size[1] / 16
+
+			for index in range(framecount):
+				frame = [[rgb_tuple_to_int(img.getpixel((x, y + 16 * index))) for y in range(16)] for x in range(16)]
+				self.frames.append(frame)
+		else:
+			framecount = img.size[0] / 16
+
+			for index in range(framecount):
+				frame = [
+					[rgb_tuple_to_int(img.getpixel((x + 16 * index, y))) for y
+					 in range(16)] for x in range(16)]
+				self.frames.append(frame)
+
 	def load_interval(self):
 		cfg = ConfigParser.ConfigParser()
 		cfg.read(self.folder + 'config.ini')
