@@ -6,6 +6,9 @@ import os
 
 
 class FPS(Module):
+	"""
+	Displays FPS on the screen
+	"""
 
 	def __init__(self, screen, fontfile = "numbers_font.bmp"):
 		super(FPS, self).__init__(screen)
@@ -42,13 +45,20 @@ class FPS(Module):
 		now = datetime.datetime.now()
 		delta_t =  now - self.lastframe
 		self.lastframe = now
-		fps = str(round(1/delta_t.total_seconds(), 1)).zfill(4)
-		print(fps)
-		
-		self.draw_digit(int(fps[0]), Point(1, 4), color)
-		self.draw_digit(int(fps[1]), Point(5, 4), color)
-		self.screen.pixel[9][10] = color
-		self.draw_digit(int(fps[3]), Point(11, 4), color)
+		fps = 1/delta_t.total_seconds()
+
+		if fps >= 100:
+			fps = str(int(round(fps)))
+			self.draw_digit(int(fps[0]), Point(3, 4), color)
+			self.draw_digit(int(fps[1]), Point(7, 4), color)
+			self.draw_digit(int(fps[2]), Point(11, 4), color)
+
+		else:
+			fps = str(round(fps, 1)).zfill(4)
+			self.draw_digit(int(fps[0]), Point(1, 4), color)
+			self.draw_digit(int(fps[1]), Point(5, 4), color)
+			self.screen.pixel[9][10] = color
+			self.draw_digit(int(fps[3]), Point(11, 4), color)
 
 	def draw(self):
 		self.screen.clear_pixel()
