@@ -43,7 +43,8 @@ class FPS(Module):
 		delta_t =  now - self.lastframe
 		self.lastframe = now
 		fps = str(round(1/delta_t.total_seconds(), 1)).zfill(4)
-
+		print(fps)
+		
 		self.draw_digit(int(fps[0]), Point(1, 4), color)
 		self.draw_digit(int(fps[1]), Point(5, 4), color)
 		self.screen.pixel[9][10] = color
