@@ -1,5 +1,6 @@
 import collections
 import colorsys
+from random import *
 
 def Color(red, green, blue, white = 0):
     """Convert the provided red, green, blue color to a 24-bit color value.
@@ -23,6 +24,9 @@ def binary_to_color(digit, one_color=Color(255,255,255), zero_color=Color(0,0,0)
 		return zero_color
 
 Point = collections.namedtuple('Point', 'x y')
+
+def random_color():
+	return Color(randint(0,255), randint(0,255), randint(0,255))
 
 def hsv_to_color(hue, saturation, value):
 	t = colorsys.hsv_to_rgb(hue, saturation, value)

@@ -9,12 +9,13 @@ class FPS(Module):
 	
 	def draw(self):
 		self.screen.clear_pixel()
+		c = random_color()
 		for x in range(16):
 			for y in range(16):
-				self.screen.pixel[x][y] = Color(0,255,255)
-				self.screen.update()
+				self.screen.pixel[x][y] = c
+				#self.screen.update()
 				#time.sleep(0.1)
-		#self.screen.update()
+		self.screen.update()
 
 
 	def tick(self):
