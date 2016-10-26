@@ -81,11 +81,13 @@ You can test all software without a Raspberry Pi, Gamepad or LED matrix. To do s
 
 ### Updates to original pixelpi
 
-- text scrolling
+- text scrolling module
 - PNG images
 - PIL/Pillow backend for image handling
 - automatic image resizing
 - a new funky 24-hour clock module
+- horizontal animation images
+- [Langton's Ant](https://en.wikipedia.org/wiki/Langton%27s_ant) Module
 - a 3x7 monospaced font for text and numbers
 
 ###TODO's:
