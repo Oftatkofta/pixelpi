@@ -7,7 +7,10 @@ import os
 
 class LangtonsAnt(Module):
 	"""
-	On light turn right, on dark turn left
+	Implemets Langton's ant on a toroidal grid (top-bottom, left-righ wrapping)
+
+	The rules are:
+	On white turn right, on black turn left, flip the color of the square
 	"""
 
 	def __init__(self, screen, start_position = Point(7,7), antcolor=Color(255, 0, 0)):
@@ -16,7 +19,7 @@ class LangtonsAnt(Module):
 		self.position = start_position
 		self.previous_position = None
 		self.antcolor = antcolor
-		self.screen.clear_pixel(color=Color(255,255,255))
+		self.screen.clear_pixel()
 
 	def get_pixel_color(self, point):
 		return int_to_rgb_color(self.screen.pixel[point.x][point.y])
@@ -90,7 +93,7 @@ class LangtonsAnt(Module):
 			self.screen.pixel[point.x][point.y] = Color(0, 0, 0)
 
 	def step(self):
-		#print(self.get_direction())
+
 		c = self.get_pixel_color(self.position)
 		self.flip_color()
 		self.screen.update()
