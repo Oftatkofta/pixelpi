@@ -10,6 +10,7 @@ def Color(red, green, blue, white = 0):
     return (white << 24) | (green << 16) | (red << 8) | blue
 
 RGBColor = collections.namedtuple('RGBColor', 'r g b')
+Point = collections.namedtuple('Point', 'x y')
 
 def int_to_rgb_color(c):
 	b =  c & 255
@@ -22,8 +23,6 @@ def binary_to_color(digit, one_color=Color(255,255,255), zero_color=Color(0,0,0)
 		return one_color
 	else:
 		return zero_color
-
-Point = collections.namedtuple('Point', 'x y')
 
 def random_color():
 	return Color(randint(0,255), randint(0,255), randint(0,255))

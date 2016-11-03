@@ -1,6 +1,8 @@
 import time
 from helpers import *
 from modules import Module
+from itertools import cycle, islice
+from color_palettes import color_palettes
 from PIL import Image
 import os
 
@@ -13,16 +15,30 @@ class LangtonsAnt(Module):
 	On white turn right, on black turn left, flip the color of the square
 	"""
 
-	def __init__(self, screen, start_position = Point(7,7), antcolor=Color(255, 0, 0)):
+	def __init__(self, screen, start_position = Point(7,7),
+	             antcolor=Color(255, 0, 0), rule="RLRLR", colorlist=color_palettes.generate_firenze(),
+	             clear_screen = True):
 		super(LangtonsAnt, self).__init__(screen)
 
 		self.position = start_position
 		self.previous_position = None
 		self.antcolor = antcolor
-		self.screen.clear_pixel()
+
+		self.rule = list(rule)
+		self.colors = colorlist
+		self.color_cycle = cycle(self.colors)
+		self.color_cycle.next()
+
+		self.rulebook = dict(zip(self.colors,
+		                         zip(self.rule, self.color_cycle)))
+
+		if clear_screen:
+			self.screen.clear_pixel(next(self.color_cycle))
+
+
 
 	def get_pixel_color(self, point):
-		return int_to_rgb_color(self.screen.pixel[point.x][point.y])
+		return self.screen.pixel[point.x][point.y]
 
 	def get_direction(self):
 		"""
@@ -92,15 +108,21 @@ class LangtonsAnt(Module):
 		if c == (255, 255, 255):
 			self.screen.pixel[point.x][point.y] = Color(0, 0, 0)
 
+	def flip_current_pixel_color(self, color):
+		point = self.position
+		self.screen.pixel[point.x][point.y] = color
+
 	def step(self):
 
 		c = self.get_pixel_color(self.position)
-		self.flip_color()
+		turn = self.rulebook[c][0]
+		next_color = self.rulebook[c][1]
+		self.flip_current_pixel_color(next_color)
 		self.screen.update()
 
-		if c == (0, 0, 0):
+		if turn == "L":
 			self.turn_left()
-		if c == (255, 255, 255):
+		else:
 			self.turn_right()
 
 
@@ -118,6 +140,6 @@ class LangtonsAnt(Module):
 
 
 	def tick(self):
-		self.blink()
+		#self.blink()
 		self.step()
 		#self.blink()
