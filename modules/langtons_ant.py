@@ -16,7 +16,7 @@ class LangtonsAnt(Module):
 	"""
 
 	def __init__(self, screen, start_position = Point(7,7),
-	             antcolor=Color(255, 0, 0), rule="RLRLR", colorlist=color_palettes.generate_firenze(),
+	             antcolor=Color(255, 0, 0), rule="LLRR", colorlist=color_palettes.generate_firenze(),
 	             clear_screen = True):
 		super(LangtonsAnt, self).__init__(screen)
 
@@ -25,7 +25,7 @@ class LangtonsAnt(Module):
 		self.antcolor = antcolor
 
 		self.rule = list(rule)
-		self.colors = colorlist
+		self.colors = colorlist[:len(self.rule)]
 		self.color_cycle = cycle(self.colors)
 		self.color_cycle.next()
 
