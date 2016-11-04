@@ -6,7 +6,7 @@ import config
 
 screen = create_screen()
 
-langtons_ant = LangtonsAnt(screen)
+langtons_ant = LangtonsAnt(screen, rule="RLLR")
 langtons_ant.start()
 
 while True:
