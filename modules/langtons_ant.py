@@ -3,7 +3,6 @@ from helpers import *
 from modules import Module
 from itertools import cycle, islice
 from color_palettes import color_palettes
-from PIL import Image
 import os
 
 
@@ -15,8 +14,8 @@ class LangtonsAnt(Module):
 	On white turn right, on black turn left, flip the color of the square
 	"""
 
-	def __init__(self, screen, start_position = Point(7,7),
-	             antcolor=Color(255, 0, 0), rule="LLRR", colorlist=color_palettes.generate_firenze(),
+	def __init__(self, screen, start_position = Point(randint(0, 15),randint(0, 15)),
+	             antcolor=Color(255, 0, 0), rule="RLLRL", colorlist=color_palettes.generate_firenze(),
 	             clear_screen = True):
 		super(LangtonsAnt, self).__init__(screen)
 
