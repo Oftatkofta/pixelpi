@@ -15,7 +15,7 @@ class LangtonsAnt(Module):
 	"""
 
 	def __init__(self, screen, start_position = Point(randint(0, 15),randint(0, 15)),
-	             antcolor=Color(255, 0, 0), rule="RLLRL", colorlist=color_palettes.generate_firenze(),
+	             antcolor=Color(255, 0, 0), rule="RLLRL", colorlist=color_palettes.firenze(),
 	             clear_screen = True):
 		super(LangtonsAnt, self).__init__(screen)
 
@@ -97,6 +97,22 @@ class LangtonsAnt(Module):
 		if dir == "right":
 			self.position = Point(self.position.x, (self.position.y-1)%16)
 
+	def go_straight(self):
+		dir = self.get_direction()
+		self.previous_position = self.position
+
+		if dir == "up":
+			self.position = Point(self.position.x, (self.position.y+1)%16)
+
+		if dir == "down":
+			self.position = Point(self.position.x, (self.position.y-1)%16)
+
+		if dir == "left":
+			self.position = Point((self.position.x-1)%16, self.position.y)
+
+		if dir == "right":
+			self.position = Point((self.position.x+1)%16, self.position.y-1)
+
 	def flip_color(self):
 		point = self.position
 		c = self.get_pixel_color(point)
@@ -121,8 +137,10 @@ class LangtonsAnt(Module):
 
 		if turn == "L":
 			self.turn_left()
-		else:
+		elif turn == "R":
 			self.turn_right()
+		else:
+			self.go_straight()
 
 
 	def blink(self, ntimes=1):
