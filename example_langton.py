@@ -3,10 +3,11 @@ from modules.langtons_ant import LangtonsAnt
 from screenfactory import create_screen
 import time
 import config
+from color_palettes import *
 
 screen = create_screen()
 
-langtons_ant = LangtonsAnt(screen, rule="RLLR")
+langtons_ant = LangtonsAnt(screen, rule="RL", colorlist=color_palettes.colorcombo210())
 langtons_ant.start()
 
 while True:
@@ -15,4 +16,4 @@ while True:
 		for event in pygame.event.get():
 			pass
 	else:
-		time.sleep(0.001)
+		time.sleep(0.01)

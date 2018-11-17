@@ -6,5 +6,5 @@ gallery/
 /.idea
 
 .DS_Store
-
+*DS_Store*
 _purchases/

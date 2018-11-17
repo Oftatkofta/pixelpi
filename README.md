@@ -25,8 +25,8 @@ Since I'm cheap I only buy what I absolutely have to. One of those things was la
 - White PVC board for diffuser/screen,  129 NOK (14 €)
 - eBoy animation pack from www.ledseq.com, 86 NOK (10 $)
 - Wire, solder, hot glue, capacitors, etc
+- PiJuice HAT 54.98 GBP 
 
-(1538 NOK total, about €169 / $187)
 
 ### LED strips
 

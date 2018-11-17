@@ -18,7 +18,7 @@ class CycleAll(Module):
 
 	"""
 
-	def __init__(self, screen, interval=20, fadetime=0.5):
+	def __init__(self, screen, interval=20, fadetime=0):
 		super(CycleAll, self).__init__(screen)
 
 		input.on_press.append(self.key_press)
@@ -33,6 +33,7 @@ class CycleAll(Module):
 
 		self.clock = Clock2(self.screen)
 		self.pick_clock = False
+
 
 		# The first display_objects are special modules that are displayed
 		# more frequently
