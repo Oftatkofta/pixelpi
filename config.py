@@ -19,4 +19,4 @@ verbose_input = config.getboolean('debug', 'verboseinput')
 def store():
 	config.set('hardware', 'brightness', brightness)
 	with open(filename, 'wb') as configfile:
-   		config.write(configfile)
+		config.write(configfile)

@@ -21,7 +21,7 @@ class Module(object):
 		start_new_thread(self.run, ())
 
 		self.on_start()
- 		
+
 	def stop(self):
 		self.running = False
 		self.on_stop()

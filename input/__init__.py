@@ -15,42 +15,42 @@ on_release = []
 on_tick = []
 
 available_input_methods = []
-	
+
 def press(key):
-	if not key in range(TOTAL_KEYS):
-		print "Unknown key!"
-		return
+    if not key in range(TOTAL_KEYS):
+        print "Unknown key!"
+        return
 
-	key_state[key] = True
-	if _verbose:
-		print('Pressed ' + str(key))
-	for callback in on_press:
-		event_handled = callback(key)
-		if event_handled:
-			return
-		
+    key_state[key] = True
+    if _verbose:
+        print('Pressed ' + str(key))
+    for callback in on_press:
+        event_handled = callback(key)
+        if event_handled:
+            return
+
 def release(key):
-	if not key in range(TOTAL_KEYS):
-		print "Unknown key!"
-		return
+    if not key in range(TOTAL_KEYS):
+        print "Unknown key!"
+        return
 
-	key_state[key] = False
-	if _verbose:
-		print('Released ' + str(key))
-	for callback in on_release:
-		event_handled = callback(key)
-		if event_handled:
-			return
+    key_state[key] = False
+    if _verbose:
+        print('Released ' + str(key))
+    for callback in on_release:
+        event_handled = callback(key)
+        if event_handled:
+            return
 
 def tick():
-	for callback in on_tick:
-		callback()
+    for callback in on_tick:
+        callback()
 
 if config.use_gamepad:
-	import input.gamepad
+    import input.gamepad
 if config.use_keyboard:
-	import input.keyboard
+    import input.keyboard
 if config.use_buttons:
-	import input.buttons
+    import input.buttons
 if config.use_web:
-	import web
+    import web

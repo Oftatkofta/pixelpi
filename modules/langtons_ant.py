@@ -7,156 +7,152 @@ import os
 
 
 class LangtonsAnt(Module):
-	"""
-	Implemets Langton's ant on a toroidal grid (top-bottom, left-righ wrapping)
+    """
+    Implemets Langton's ant on a toroidal grid (top-bottom, left-righ wrapping)
 
-	The rules are:
-	On white turn right, on black turn left, flip the color of the square
-	"""
+    The rules are:
+    On white turn right, on black turn left, flip the color of the square
+    """
 
-	def __init__(self, screen, start_position = Point(randint(0, 15),randint(0, 15)),
-	             antcolor=Color(255, 0, 0), rule="RLLRL", colorlist=color_palettes.firenze(),
-	             clear_screen = True):
-		super(LangtonsAnt, self).__init__(screen)
+    def __init__(self, screen, start_position=Point(randint(0, 15), randint(0, 15)),
+                 antcolor=Color(255, 0, 0), rule="RLLRL", colorlist=color_palettes.firenze(),
+                 clear_screen=True):
+        super(LangtonsAnt, self).__init__(screen)
 
-		self.position = start_position
-		self.previous_position = None
-		self.antcolor = antcolor
+        self.position = start_position
+        self.previous_position = None
+        self.antcolor = antcolor
 
-		self.rule = list(rule)
-		self.colors = colorlist[:len(self.rule)]
-		self.color_cycle = cycle(self.colors)
-		self.color_cycle.next()
+        self.rule = list(rule)
+        self.colors = colorlist[:len(self.rule)]
+        self.color_cycle = cycle(self.colors)
+        self.color_cycle.next()
 
-		self.rulebook = dict(zip(self.colors,
-		                         zip(self.rule, self.color_cycle)))
+        self.rulebook = dict(zip(self.colors,
+                                 zip(self.rule, self.color_cycle)))
 
-		if clear_screen:
-			self.screen.clear_pixel(next(self.color_cycle))
+        if clear_screen:
+            self.screen.clear_pixel(next(self.color_cycle))
 
+    def get_pixel_color(self, point):
+        return self.screen.pixel[point.x][point.y]
 
+    def get_direction(self):
+        """
+        Calculates the current travelling direction as a "point vector"
 
-	def get_pixel_color(self, point):
-		return self.screen.pixel[point.x][point.y]
+        :return:
+                a string: "right", "left", "up" or "down"
 
-	def get_direction(self):
-		"""
-		Calculates the current travelling direction as a "point vector"
+        """
+        if self.previous_position == None:
+            return "up"
 
-		:return:
-				a string: "right", "left", "up" or "down"
+        d_x = self.position.x - self.previous_position.x
+        d_y = self.position.y - self.previous_position.y
 
-		"""
-		if self.previous_position == None:
-			return "up"
+        if (d_x == 1) or (d_x == -15):
+            return "right"
 
-		d_x = self.position.x - self.previous_position.x
-		d_y = self.position.y - self.previous_position.y
+        if (d_x == -1) or (d_x == 15):
+            return "left"
 
-		if (d_x == 1) or (d_x == -15):
-			return "right"
+        if (d_y == 1) or (d_y == -15):
+            return "down"
 
-		if (d_x == -1) or (d_x == 15):
-			return "left"
+        else:
+            return "up"
 
-		if (d_y == 1) or (d_y == -15):
-			return "down"
+    def turn_left(self):
+        dir = self.get_direction()
+        self.previous_position = self.position
 
-		else:
-			return "up"
+        if dir == "up":
+            self.position = Point((self.position.x - 1) % 16, self.position.y)
 
-	def turn_left(self):
-		dir = self.get_direction()
-		self.previous_position = self.position
+        if dir == "down":
+            self.position = Point((self.position.x + 1) % 16, self.position.y)
 
-		if dir == "up":
-			self.position = Point((self.position.x-1)%16, self.position.y)
+        if dir == "left":
+            self.position = Point(self.position.x, (self.position.y - 1) % 16)
 
-		if dir == "down":
-			self.position = Point((self.position.x+1)%16, self.position.y)
+        if dir == "right":
+            self.position = Point(self.position.x, (self.position.y + 1) % 16)
 
-		if dir == "left":
-			self.position = Point(self.position.x, (self.position.y-1)%16)
+    def turn_right(self):
+        dir = self.get_direction()
+        self.previous_position = self.position
 
-		if dir == "right":
-			self.position = Point(self.position.x, (self.position.y+1)%16)
+        if dir == "up":
+            self.position = Point((self.position.x + 1) % 16, self.position.y)
 
-	def turn_right(self):
-		dir = self.get_direction()
-		self.previous_position = self.position
+        if dir == "down":
+            self.position = Point((self.position.x - 1) % 16, self.position.y)
 
-		if dir == "up":
-			self.position = Point((self.position.x+1)%16, self.position.y)
+        if dir == "left":
+            self.position = Point(self.position.x, (self.position.y + 1) % 16)
 
-		if dir == "down":
-			self.position = Point((self.position.x-1)%16, self.position.y)
+        if dir == "right":
+            self.position = Point(self.position.x, (self.position.y - 1) % 16)
 
-		if dir == "left":
-			self.position = Point(self.position.x, (self.position.y+1)%16)
+    def go_straight(self):
+        dir = self.get_direction()
+        self.previous_position = self.position
 
-		if dir == "right":
-			self.position = Point(self.position.x, (self.position.y-1)%16)
+        if dir == "up":
+            self.position = Point(self.position.x, (self.position.y + 1) % 16)
 
-	def go_straight(self):
-		dir = self.get_direction()
-		self.previous_position = self.position
+        if dir == "down":
+            self.position = Point(self.position.x, (self.position.y - 1) % 16)
 
-		if dir == "up":
-			self.position = Point(self.position.x, (self.position.y+1)%16)
+        if dir == "left":
+            self.position = Point((self.position.x - 1) % 16, self.position.y)
 
-		if dir == "down":
-			self.position = Point(self.position.x, (self.position.y-1)%16)
+        if dir == "right":
+            self.position = Point((self.position.x + 1) % 16, self.position.y - 1)
 
-		if dir == "left":
-			self.position = Point((self.position.x-1)%16, self.position.y)
+    def flip_color(self):
+        point = self.position
+        c = self.get_pixel_color(point)
 
-		if dir == "right":
-			self.position = Point((self.position.x+1)%16, self.position.y-1)
+        if c == (0, 0, 0):
+            self.screen.pixel[point.x][point.y] = Color(255, 255, 255)
 
-	def flip_color(self):
-		point = self.position
-		c = self.get_pixel_color(point)
+        if c == (255, 255, 255):
+            self.screen.pixel[point.x][point.y] = Color(0, 0, 0)
 
-		if c == (0, 0, 0):
-			self.screen.pixel[point.x][point.y] = Color(255, 255, 255)
+    def flip_current_pixel_color(self, color):
+        point = self.position
+        self.screen.pixel[point.x][point.y] = color
 
-		if c == (255, 255, 255):
-			self.screen.pixel[point.x][point.y] = Color(0, 0, 0)
+    def step(self):
 
-	def flip_current_pixel_color(self, color):
-		point = self.position
-		self.screen.pixel[point.x][point.y] = color
+        c = self.get_pixel_color(self.position)
+        turn = self.rulebook[c][0]
+        next_color = self.rulebook[c][1]
+        self.flip_current_pixel_color(next_color)
+        self.screen.update()
 
-	def step(self):
+        if turn == "L":
+            self.turn_left()
+        elif turn == "R":
+            self.turn_right()
+        else:
+            self.go_straight()
 
-		c = self.get_pixel_color(self.position)
-		turn = self.rulebook[c][0]
-		next_color = self.rulebook[c][1]
-		self.flip_current_pixel_color(next_color)
-		self.screen.update()
+    def blink(self, ntimes=1):
 
-		if turn == "L":
-			self.turn_left()
-		elif turn == "R":
-			self.turn_right()
-		else:
-			self.go_straight()
+        pixel_color = self.screen.pixel[self.position.x][self.position.y]
 
+        for i in range(ntimes):
+            self.screen.pixel[self.position.x][self.position.y] = self.antcolor
+            self.screen.update()
+            time.sleep(0.01)
+            self.screen.pixel[self.position.x][self.position.y] = pixel_color
+            self.screen.update()
+            time.sleep(0.01)
 
-	def blink(self, ntimes=1):
-
-		pixel_color = self.screen.pixel[self.position.x][self.position.y]
-
-		for i in range(ntimes):
-			self.screen.pixel[self.position.x][self.position.y] = self.antcolor
-			self.screen.update()
-			time.sleep(0.01)
-			self.screen.pixel[self.position.x][self.position.y] = pixel_color
-			self.screen.update()
-			time.sleep(0.01)
-
-
-	def tick(self):
-		#self.blink()
-		self.step()
-		#self.blink()
+    def tick(self):
+        #self.blink(3)
+        self.step()
+# self.blink()

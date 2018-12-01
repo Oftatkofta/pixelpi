@@ -3,7 +3,7 @@ from animation import *
 import time
 from os import listdir
 from helpers import Color, rgb_tuple_to_int
-from PIL import Image
+import PIL
 from random import shuffle
 
 class StillImage(Module):
@@ -21,7 +21,7 @@ class StillImage(Module):
 
 		if image.size != (16,16):
 			print("resizing:", self.filename)
-			image = image.resize((16,16), resample=Image.LANCZOS)
+			image = image.resize((16,16))
 
 		if image.mode != "RGB":
 			# avoid alpha channel and binary image troubles for now

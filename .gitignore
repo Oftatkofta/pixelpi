@@ -3,6 +3,7 @@ other/
 *.pyc
 /config.ini
 gallery/
+_Quarantine/
 /.idea
 
 .DS_Store

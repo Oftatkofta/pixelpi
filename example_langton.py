@@ -3,11 +3,11 @@ from modules.langtons_ant import LangtonsAnt
 from screenfactory import create_screen
 import time
 import config
-from color_palettes import *
+from color_palettes import color_palettes
 
 screen = create_screen()
 
-langtons_ant = LangtonsAnt(screen, rule="RL", colorlist=color_palettes.colorcombo210())
+langtons_ant = LangtonsAnt(screen, rule="RRRRL")
 langtons_ant.start()
 
 while True:
