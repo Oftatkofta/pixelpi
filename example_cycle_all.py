@@ -1,8 +1,8 @@
 import pygame
-from modules.cycle_all import CycleAll
-from screenfactory import create_screen
+from .modules.cycle_all import CycleAll
+from .screenfactory import create_screen
 import time
-import config
+from . import config
 
 screen = create_screen()
 

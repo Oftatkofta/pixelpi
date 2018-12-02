@@ -1,6 +1,6 @@
-from screenfactory import create_screen
-from modules.clock2 import Clock2
-import config
+from .screenfactory import create_screen
+from .modules.clock2 import Clock2
+from . import config
 import time
 import pygame
 

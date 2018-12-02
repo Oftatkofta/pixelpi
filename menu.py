@@ -1,12 +1,12 @@
 import os
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
-from menu.menuitems import create_menu_items
-from screenfactory import create_screen
+from .menu.menuitems import create_menu_items
+from .screenfactory import create_screen
 import time
 import math
-from helpers import *
-import config
-import input
+from .helpers import *
+from . import config
+from . import input
 
 class Menu(object):
 	def __init__(self, screen, items):

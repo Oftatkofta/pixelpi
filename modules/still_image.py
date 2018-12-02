@@ -1,5 +1,5 @@
-from __future__ import print_function
-from animation import *
+
+from .animation import *
 import time
 from os import listdir
 from helpers import Color, rgb_tuple_to_int

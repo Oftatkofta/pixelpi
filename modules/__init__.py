@@ -1,4 +1,4 @@
-from thread import start_new_thread
+from _thread import start_new_thread
 from helpers import *
 
 class Module(object):

@@ -1,8 +1,8 @@
-import ConfigParser
+import configparser
 
 filename = 'config.ini'
 
-config = ConfigParser.RawConfigParser()
+config = configparser.RawConfigParser()
 config.read(filename)
 
 virtual_hardware = config.getboolean('hardware', 'virtualhardware')

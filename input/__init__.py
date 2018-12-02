@@ -18,12 +18,12 @@ available_input_methods = []
 
 def press(key):
     if not key in range(TOTAL_KEYS):
-        print "Unknown key!"
+        print("Unknown key!")
         return
 
     key_state[key] = True
     if _verbose:
-        print('Pressed ' + str(key))
+        print(('Pressed ' + str(key)))
     for callback in on_press:
         event_handled = callback(key)
         if event_handled:
@@ -31,12 +31,12 @@ def press(key):
 
 def release(key):
     if not key in range(TOTAL_KEYS):
-        print "Unknown key!"
+        print("Unknown key!")
         return
 
     key_state[key] = False
     if _verbose:
-        print('Released ' + str(key))
+        print(('Released ' + str(key)))
     for callback in on_release:
         event_handled = callback(key)
         if event_handled:
@@ -53,4 +53,4 @@ if config.use_keyboard:
 if config.use_buttons:
     import input.buttons
 if config.use_web:
-    import web
+    from . import web

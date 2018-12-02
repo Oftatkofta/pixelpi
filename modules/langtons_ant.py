@@ -26,10 +26,10 @@ class LangtonsAnt(Module):
         self.rule = list(rule)
         self.colors = colorlist[:len(self.rule)]
         self.color_cycle = cycle(self.colors)
-        self.color_cycle.next()
+        next(self.color_cycle)
 
-        self.rulebook = dict(zip(self.colors,
-                                 zip(self.rule, self.color_cycle)))
+        self.rulebook = dict(list(zip(self.colors,
+                                 list(zip(self.rule, self.color_cycle)))))
 
         if clear_screen:
             self.screen.clear_pixel(next(self.color_cycle))

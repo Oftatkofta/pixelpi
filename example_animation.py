@@ -1,6 +1,6 @@
-from screenfactory import create_screen
-from modules.animation import *
-import config
+from .screenfactory import create_screen
+from .modules.animation import *
+from . import config
 
 screen = create_screen()
 

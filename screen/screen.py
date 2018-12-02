@@ -1,6 +1,6 @@
 import pygame
 import config
-from abstractscreen import AbstractScreen
+from .abstractscreen import AbstractScreen
 
 instance = None
 

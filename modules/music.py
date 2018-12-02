@@ -3,7 +3,7 @@ import math
 from helpers import *
 from modules import Module
 import serial
-from thread import start_new_thread
+from _thread import start_new_thread
 
 class Music(Module):
 	def __init__(self, screen):

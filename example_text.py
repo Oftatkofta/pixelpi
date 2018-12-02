@@ -1,6 +1,6 @@
-from screenfactory import create_screen
-from modules.text_scroller import TextScroller
-import config
+from .screenfactory import create_screen
+from .modules.text_scroller import TextScroller
+from . import config
 import time
 import pygame
 import string

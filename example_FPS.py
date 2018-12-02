@@ -1,6 +1,6 @@
-from screenfactory import create_screen
-from modules.FPS_test import FPS
-import config
+from .screenfactory import create_screen
+from .modules.FPS_test import FPS
+from . import config
 import time
 import pygame
 

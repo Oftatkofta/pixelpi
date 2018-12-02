@@ -1,7 +1,7 @@
 import os.path
 import pygame.image
 import time
-import ConfigParser
+import configparser
 from helpers import *
 from modules import Module
 from PIL import Image
@@ -40,7 +40,7 @@ class Animation(Module):
 			
 			self.screen.pixel = self.frames[0]
 		except Exception:
-			print('Failed to load ' + folder)
+			print(('Failed to load ' + folder))
 			raise
 		
 		if self.fadetime != 0:
@@ -61,7 +61,7 @@ class Animation(Module):
 
 				img = Image.open(self.folder + str(i) + '.bmp')
 			except Exception:
-				print('Error loading ' + str(i) + '.bmp from ' + self.folder)
+				print(('Error loading ' + str(i) + '.bmp from ' + self.folder))
 				raise
 
 
@@ -95,13 +95,13 @@ class Animation(Module):
 				self.frames.append(frame)
 
 	def load_interval(self):
-		cfg = ConfigParser.ConfigParser()
+		cfg = configparser.ConfigParser()
 		cfg.read(self.folder + 'config.ini')
 		return cfg.getint('animation', 'hold')
 
 	def load_config(self):
 		out = {}
-		cfg = ConfigParser.ConfigParser()
+		cfg = configparser.ConfigParser()
 		try:
 			cfg.read(self.folder + "config.ini")
 			out["hold"] = cfg.getint("animation", "hold")
@@ -132,7 +132,7 @@ class Animation(Module):
 		time.sleep(self.config["hold"] / 1000.0)
 		
 	def on_start(self):
-		print('Starting ' + self.folder)
+		print(('Starting ' + self.folder))
 
 
 	def on_stop(self):

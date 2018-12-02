@@ -1,9 +1,9 @@
-from screenfactory import create_screen
-from modules.snake import *
+from .screenfactory import create_screen
+from .modules.snake import *
 import time
-import config
+from . import config
 import pygame
-import input
+from . import input
 
 screen = create_screen()
 

@@ -1,7 +1,7 @@
 from modules import Module
 import input
 
-from puzzle import *
+from .puzzle import *
 
 class WitnessGame(Module):
 	def __init__(self, screen):

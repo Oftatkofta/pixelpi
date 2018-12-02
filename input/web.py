@@ -1,6 +1,6 @@
 from input import *
 from flask import Flask
-import thread
+import _thread
 import logging
 
 app = Flask(__name__, static_folder='../')
@@ -17,4 +17,4 @@ def key(id):
 	release(int(id))
 	return "ok"
 
-thread.start_new_thread(app.run, (), {'host': '0.0.0.0', 'port': 80})
+_thread.start_new_thread(app.run, (), {'host': '0.0.0.0', 'port': 80})

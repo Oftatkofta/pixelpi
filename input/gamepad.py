@@ -2,7 +2,7 @@
 
 from input import *
 import time
-from thread import start_new_thread
+from _thread import start_new_thread
 
 def _process_byte(byte, button):
 	if byte == ['01', '00', button, '01', '01', '00', '00', '00']:

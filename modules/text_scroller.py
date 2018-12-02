@@ -1,4 +1,4 @@
-from __future__ import print_function
+
 from helpers import *
 from modules import Module
 from PIL import Image

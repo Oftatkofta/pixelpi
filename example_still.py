@@ -1,6 +1,6 @@
-from screenfactory import create_screen
-from modules.still_image import *
-import config
+from .screenfactory import create_screen
+from .modules.still_image import *
+from . import config
 
 screen = create_screen()
 

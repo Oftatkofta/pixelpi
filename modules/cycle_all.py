@@ -1,6 +1,6 @@
-from animation import *
-from clock2 import *
-from still_image import *
+from .animation import *
+from .clock2 import *
+from .still_image import *
 import time
 import os
 import random
@@ -147,7 +147,7 @@ class CycleAll(Module):
 			self.pick_clock = not self.pick_clock
 			self.total_displays += 1
 
-			print(self.total_displays)
+			print((self.total_displays))
 
 		time.sleep(0.1)
 

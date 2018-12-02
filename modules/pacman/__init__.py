@@ -6,7 +6,7 @@ from modules.animation import Animation
 from modules import Module
 import input
 
-from ghost import *
+from .ghost import *
 
 class Pacman(Module):
 	walls = [

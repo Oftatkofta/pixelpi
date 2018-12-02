@@ -68,7 +68,7 @@ def blend_colors(color1, color2, progress):
 
     b2 = color2 & 255
     r2 = (color2 >> 8) & 255
-    b2 = (color2 >> 16) & 255
+    g2 = (color2 >> 16) & 255
 
     inverted_progress = 1.0 - progress
     return Color(int(inverted_progress * r1 + progress * r2), int(inverted_progress * g1 + progress * g2),

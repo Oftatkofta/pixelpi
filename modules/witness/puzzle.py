@@ -1,8 +1,8 @@
 from helpers import *
 import random
-from path import *
+from .path import *
 
-from puzzlefeature import *
+from .puzzlefeature import *
 
 class Puzzle:
 	def __init__(self, screen):

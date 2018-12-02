@@ -3,16 +3,16 @@ import random
 import time
 import pygame
 import os
-import thread
+import _thread
 import math
 import input
 
-from thread import start_new_thread
+from _thread import start_new_thread
 from modules.animation import *
 
 from helpers import *
 
-from particle import *
+from .particle import *
 
 class Tetris(Module):
 	tetrominos = [
@@ -33,8 +33,8 @@ class Tetris(Module):
 		self.level_width = 10
 		self.level_height = 16
 		
-		self.draw_lock = thread.allocate_lock()
-		self.game_lock = thread.allocate_lock()
+		self.draw_lock = _thread.allocate_lock()
+		self.game_lock = _thread.allocate_lock()
 		
 		input.on_press.append(self.enqueue_key)
 		self.lastinput = 0
@@ -116,7 +116,7 @@ class Tetris(Module):
 		return True
 		
 	def game_over(self):
-		print('GAME OVER - Score: ' + str(self.score))
+		print(('GAME OVER - Score: ' + str(self.score)))
 
 		self.current_tetromino = None		
 		self.draw_and_update()
@@ -246,7 +246,7 @@ class Tetris(Module):
 			time.sleep(0.02)
 			
 		for line in lines:
-			for y in reversed(range(line)):
+			for y in reversed(list(range(line))):
 				for x in range(self.level_width):
 					self.level[x][y + 1] = self.level[x][y]
 			self.draw_and_update()

@@ -20,7 +20,7 @@ class AbstractScreen(object):
 				self.pixel[x][y] = color
 
 	def clear_stage(self):
-		self.stage = Image.new("RGB", (width, height))
+		self.stage = Image.new("RGB", (self.width, self.height))
 
 	def stage(self):
 		#moves the pixels from the staging image to self.pixel

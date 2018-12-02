@@ -1,6 +1,6 @@
-from screenfactory import create_screen
-from modules.fire import Fire
-import config
+from .screenfactory import create_screen
+from .modules.fire import Fire
+from . import config
 import time
 import pygame
 

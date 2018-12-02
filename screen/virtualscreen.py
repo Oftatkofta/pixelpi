@@ -1,6 +1,6 @@
 import pygame
 import helpers
-from abstractscreen import AbstractScreen
+from .abstractscreen import AbstractScreen
 
 # Behaves like the actual LED screen, but shows the screen content on a computer screen
 class VirtualScreen(AbstractScreen):
@@ -10,8 +10,8 @@ class VirtualScreen(AbstractScreen):
 		
 		pygame.display.init()
 		self.screen = pygame.display.set_mode((width * self.pixel_size,
-											   height * self.pixel_size),
-											  pygame.NOFRAME)
+												height * self.pixel_size),
+												pygame.RESIZABLE)
 
 		self.surface = pygame.Surface(self.screen.get_size())	
 

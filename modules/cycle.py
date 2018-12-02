@@ -1,4 +1,4 @@
-from animation import *
+from .animation import *
 import time
 import os
 import random

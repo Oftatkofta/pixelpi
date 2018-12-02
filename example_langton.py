@@ -1,9 +1,9 @@
 import pygame
-from modules.langtons_ant import LangtonsAnt
-from screenfactory import create_screen
+from .modules.langtons_ant import LangtonsAnt
+from .screenfactory import create_screen
 import time
-import config
-from color_palettes import color_palettes
+from . import config
+from .color_palettes import color_palettes
 
 screen = create_screen()
 

@@ -1,8 +1,8 @@
-from screenfactory import create_screen
-from modules.tetris import *
+from .screenfactory import create_screen
+from .modules.tetris import *
 import time
-import config
-import input
+from . import config
+from . import input
 
 screen = create_screen()
 

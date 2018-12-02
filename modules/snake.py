@@ -46,7 +46,7 @@ class Snake(Module):
 		self.set_food()
 		
 	def game_over(self):
-		print('GAME OVER - Score: ' + str(len(self.snake)))
+		print(('GAME OVER - Score: ' + str(len(self.snake))))
 		self.food = None
 		self.draw()
 		time.sleep(2)
@@ -86,7 +86,7 @@ class Snake(Module):
 			self.set_food()
 			self.snake.insert(0, next)
 		else:
-			for i in reversed(range(1, len(self.snake))):
+			for i in reversed(list(range(1, len(self.snake)))):
 				self.snake[i] = self.snake[i - 1]
 			self.snake[0] = next
 	
