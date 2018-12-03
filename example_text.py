@@ -1,15 +1,15 @@
-from .screenfactory import create_screen
-from .modules.text_scroller import TextScroller
-from . import config
+from screenfactory import create_screen
+from modules.text_scroller import TextScroller
+import config
 import time
 import pygame
 import string
 
 screen = create_screen()
 
-text="Hello world, you are... sometimes cruel!"
+text = 'Hello world, you are... sometimes cruel!' + string.printable
 
-scroller = TextScroller(screen, string.printable)
+scroller = TextScroller(screen, text)
 scroller.start()
 
 while True:
@@ -18,4 +18,4 @@ while True:
 		for event in pygame.event.get():
 			pass
 	else:
-		time.sleep(0.01)
+		time.sleep(0.1)

@@ -1,16 +1,14 @@
-import collections
 import random
 import time
-import os
 import math
-from helpers import *
-from modules import *
+from helpers import Color, Point
+from modules import Module
 import input
 
 def random_color():
 	color = []
 	while not 0 in color or not 255 in color:
-		color = [random.choice([0, 255]) for i in range(3)]
+		color = [random.choice(range(0, 255)) for i in range(3)]
 	return Color(color[0], color[1], color[2])
 
 class Snake(Module):

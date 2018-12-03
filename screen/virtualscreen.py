@@ -1,6 +1,6 @@
 import pygame
 import helpers
-from .abstractscreen import AbstractScreen
+from screen.abstractscreen import AbstractScreen
 
 # Behaves like the actual LED screen, but shows the screen content on a computer screen
 class VirtualScreen(AbstractScreen):

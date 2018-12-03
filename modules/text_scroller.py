@@ -1,5 +1,5 @@
 
-from helpers import *
+from helpers import Color, Point
 from modules import Module
 from PIL import Image
 import os
@@ -118,4 +118,4 @@ class TextScroller(Module):
         if self.textstrip_position > self.textstrip_width:
             self.textstrip_position = -16
             time.sleep(1)
-        time.sleep(0.01)
+        time.sleep(0.1)

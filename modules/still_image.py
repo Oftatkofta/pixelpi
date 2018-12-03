@@ -1,9 +1,10 @@
 
-from .animation import *
+#from animation import *
 import time
 from os import listdir
+from modules import Module
 from helpers import Color, rgb_tuple_to_int
-import PIL
+from PIL import Image
 from random import shuffle
 
 class StillImage(Module):

@@ -80,7 +80,7 @@ class Animation(Module):
 		img = Image.open(self.folder + '0.bmp')
 
 		if img.size[1] >= img.size[0]:
-			framecount = img.size[1] / 16
+			framecount = int(img.size[1] / 16)
 
 			for index in range(framecount):
 				frame = [[rgb_tuple_to_int(img.getpixel((x, y + 16 * index))) for y in range(16)] for x in range(16)]

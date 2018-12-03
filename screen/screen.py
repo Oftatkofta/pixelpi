@@ -1,16 +1,17 @@
 import pygame
 import config
-from .abstractscreen import AbstractScreen
+from abstractscreen import AbstractScreen
+import board
+import neopixel
 
 instance = None
 
 class Screen(AbstractScreen):
-	def __init__(self, width = 16, height = 16, led_pin = 18, led_freq_hz = 800000, led_dma = 5, led_invert = False, led_brightness = 200):
+	def __init__(self, width = 16, height = 16, pixel_pin = board.D18, brightness = 0.1, auto_write = False):
 		super(Screen, self).__init__(width, height)
-		import neopixel
-		
-		self.strip = neopixel.Adafruit_NeoPixel(width * height, led_pin, led_freq_hz, led_dma, led_invert, led_brightness)
-		self.strip.begin()
+		self.numPixels = width * height
+		self.strip = neopixel.NeoPixel(pixel_pin, width * height, brightness, auto_write)
+		#self.strip.begin()
 		self.update_brightness()
 		
 		global instance
@@ -18,7 +19,7 @@ class Screen(AbstractScreen):
 	
 	def update(self):
 
-		for i in range(self.strip.numPixels()):
+		for i in range(self.numPixels):
 			# find the x/y coordinates with modulo and floor division
 			if (i//16) % 2 == 0:
 				#even rows
@@ -32,7 +33,7 @@ class Screen(AbstractScreen):
 
 			# get and set the RGB values from the pixel in question
 
-			self.strip.setPixelColor(i, self.pixel[x][y])
+			self.strip[i] = self.pixel[x][y]
 
 			"""
 			(0,0) = strip[15]
@@ -42,16 +43,14 @@ class Screen(AbstractScreen):
 			(15,15)= strip[255]
 			"""
 
-
-
 		self.strip.show()
 
 	def update_brightness(self):
-		#Exponential brightnes with 9 levels 7-255 in 8-bit terms
-		self.strip.setBrightness(int(4 + 3.1 * (config.brightness + 1)**2))
+		#Linear brightnes set with float 0.-1.0
+		self.strip.brightness(float(config.brightness))
 
 	def set_brightness(self, value):
-		value = min(max(value, 0), 8)
+		value = min(max(value, 0.0), 1.0)
 		config.brightness = value
 		self.update_brightness()
 		config.store()
