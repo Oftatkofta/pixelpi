@@ -12,7 +12,8 @@ class Screen(AbstractScreen):
 
 		self.strip = neopixel.NeoPixel(pixel_pin, self.numPixels, brightness=brightness, auto_write=auto_write, pixel_order=neopixel.GRB)
 		#self.strip.begin()
-		self.update_brightness()
+		#TODO: fix brightness setting
+		#self.update_brightness()
 
 		global instance
 		instance = self
