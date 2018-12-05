@@ -1,5 +1,5 @@
 
-from animation import Animation
+#from animation import Animation
 import time
 from os import listdir
 from helpers import Color, rgb_tuple_to_int
