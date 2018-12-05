@@ -1,9 +1,7 @@
-import pygame
 import config
-from abstractscreen import AbstractScreen
+from screen import AbstractScreen
 import board
 import neopixel
-from screen.abstractscreen import AbstractScreen
 
 instance = None
 
@@ -14,10 +12,10 @@ class Screen(AbstractScreen):
 		self.strip = neopixel.NeoPixel(pixel_pin, width * height, brightness, auto_write)
 		#self.strip.begin()
 		self.update_brightness()
-		
+
 		global instance
-		instance = self	
-	
+		instance = self
+
 	def update(self):
 
 		for i in range(self.numPixels):
