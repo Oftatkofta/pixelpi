@@ -3,6 +3,7 @@ import config
 from abstractscreen import AbstractScreen
 import board
 import neopixel
+from screen.abstractscreen import AbstractScreen
 
 instance = None
 
