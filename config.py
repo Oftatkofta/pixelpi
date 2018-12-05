@@ -7,7 +7,7 @@ config.read(filename)
 
 virtual_hardware = config.getboolean('hardware', 'virtualhardware')
 default_item_index = config.getint('menu', 'defaultitemindex')
-brightness = config.getint('hardware', 'brightness')
+brightness = config.getfloat('hardware', 'brightness')
 
 use_keyboard = virtual_hardware
 use_gamepad = not virtual_hardware
