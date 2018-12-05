@@ -9,7 +9,8 @@ class Screen(AbstractScreen):
 	def __init__(self, width = 16, height = 16, pixel_pin = board.D18, brightness = 0.1, auto_write = False):
 		super(Screen, self).__init__(width, height)
 		self.numPixels = width * height
-		self.strip = neopixel.NeoPixel(pixel_pin, width * height, brightness, auto_write)
+
+		self.strip = neopixel.NeoPixel(pixel_pin, self.numPixels, brightness=brightness, auto_write=auto_write, ORDER=neopixel.GRB)
 		#self.strip.begin()
 		self.update_brightness()
 
