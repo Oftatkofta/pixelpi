@@ -1,5 +1,5 @@
 from screenfactory import create_screen
-from modules.gallery import Gallery
+from modules import Gallery
 import config
 
 screen = create_screen()
