@@ -2,6 +2,8 @@ from screenfactory import create_screen
 from modules.still_image import StillImage
 import config
 import pygame
+import time
+
 screen = create_screen()
 
 gallery = StillImage(screen, "gallery/alicia.bmp")
