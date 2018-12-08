@@ -1,6 +1,6 @@
-from .screenfactory import create_screen
-from .modules.music import Music
-from . import config
+screenfactory import create_screen
+from modules.music import Music
+import config
 import time
 import pygame
 
