@@ -18,7 +18,8 @@ palette = [
 	PaletteStop(1.0, [255, 255, 255])
 ]
 
-def map(value, old_lower, old_upper, new_lower, new_upper):
+def map_it(value, old_lower, old_upper, new_lower, new_upper):
+
 	return max(new_lower, min(new_upper, new_lower + (new_upper - new_lower) * (value - old_lower) / (old_upper - old_lower)))
 
 class Fire(Module):
@@ -29,10 +30,11 @@ class Fire(Module):
 		self.gradient = [self.get_color(1.0 * i / self.presets) for i in range(self.presets + 1)]
 
 	def get_fire_value(self, x, y, t):
+
 		stretch = 2
 		exp = 1.5
 
-		value = list(map(snoise2(x * 3, stretch**(-1.0 / exp) * (1.0 - ((1.0 - y) * stretch)**exp) * 0.8 - t * 0.7, 4), -0.72, 0.7, 0, 1))
+		value = list(map_it(snoise2(x * 3, stretch ** (-1.0 / exp) * (1.0 - ((1.0 - y) * stretch) ** exp) * 0.8 - t * 0.7, 4), -0.72, 0.7, 0, 1))
 		value = value ** 1.5
 
 		value *= 1.0 - y**1.5
@@ -40,7 +42,8 @@ class Fire(Module):
 		return value
 
 	def get_color(self, value):
-		stop1 = 0;
+
+		stop1 = 0
 
 		while (palette[stop1 + 1].pos < value):
 			stop1 += 1

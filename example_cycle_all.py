@@ -6,13 +6,13 @@ import config
 
 screen = create_screen()
 
-cycle = CycleAll(screen, 0.1, 0)
+cycle = CycleAll(screen, 10, 0)
 cycle.start()
 
 while True:
-	if config.virtual_hardware:
-		pygame.time.wait(10)
-		for event in pygame.event.get():
-			pass
-	else:
-		 time.sleep(0.01)
+    if config.virtual_hardware:
+        pygame.time.wait(10)
+        for event in pygame.event.get():
+            pass
+    else:
+        time.sleep(0.01)
