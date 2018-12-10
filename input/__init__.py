@@ -1,4 +1,4 @@
-import config
+import ..config
 
 def enum(**enums):
     return type('Enum', (), enums)
