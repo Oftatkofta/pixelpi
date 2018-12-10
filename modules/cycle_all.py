@@ -1,6 +1,7 @@
 from .animation import Animation
 from .clock2 import Clock2
 from .still_image import StillImage
+from modules import Module
 import time
 import os
 import random
@@ -56,10 +57,10 @@ class CycleAll(Module):
         if not os.path.exists(location):
             raise Exception("Path " + location + " not found")
 
-        filenames = [(location + f, "StillImage") for f in listdir(location)]
+        filenames = [(location + f, "StillImage") for f in os.listdir(location)]
 
         # randomize order of files each time
-        shuffle(filenames)
+        random.shuffle(filenames)
 
         if len(filenames) == 0:
             raise Exception("No images found in " + location)
@@ -79,7 +80,7 @@ class CycleAll(Module):
         if len(subfolders) == 0:
             raise Exception("No animations found in " + location)
 
-        shuffle(subfolders)
+        random.shuffle(subfolders)
 
         return subfolders
 
@@ -92,13 +93,13 @@ class CycleAll(Module):
         if self.display_objects[index] is None:
 
             if self.items_to_load[index][1] == "StillImage":
-                print(f"Loading StillImage {self.items_to_load[index][0]}")
+                print("Loading StillImage {}".format(self.items_to_load[index][0]))
                 self.display_objects[index] = StillImage(self.screen,
                                                          self.items_to_load[index][0],
                                                          fadetime=self.fadetime)
 
             if self.items_to_load[index][1] == "Animation":
-                print(f"Loading Animation {self.items_to_load[index][0]}")
+                print("Loading Animation {}".format(self.items_to_load[index][0]))
                 self.display_objects[index] = Animation(self.screen,
                                                         self.items_to_load[index][0],
                                                         autoplay=False,
@@ -108,8 +109,8 @@ class CycleAll(Module):
 
     def next(self, pick_clock=False, pick_random=True):
 
-        if self.get_current_animation != None:
-            self.get_current_animation.stop()
+        if self.get_current_animation() is not None:
+            self.get_current_animation().stop()
 
         if len(self.index_history) > 100:
             # Don't save an infinite history, 50-100 items seems reasonable
@@ -131,7 +132,7 @@ class CycleAll(Module):
         self.history_position += 1
         self.index_history.append(index)
 
-        self.get_current_animation.start()
+        self.get_current_animation().start()
 
     def tick(self):
         if not self.paused and time.time() > self.next_animation:
