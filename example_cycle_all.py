@@ -4,6 +4,7 @@ from screenfactory import create_screen
 import time
 import config
 
+
 screen = create_screen()
 
 cycle = CycleAll(screen, 20, 0.1)

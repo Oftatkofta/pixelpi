@@ -6,4 +6,4 @@ def create_screen():
 		return VirtualScreen()
 	else:
 		from screen.screen import Screen
-		return Screen()
+		return Screen(brightness=config.brightness)
