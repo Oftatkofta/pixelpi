@@ -1,7 +1,7 @@
 import time
 import math
-from helpers import *
-from modules import Module
+from helpers import hsv_to_color
+#from modules import Module
 
 class Pie(Module):
 	def __init__(self, screen):

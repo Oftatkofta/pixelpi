@@ -6,7 +6,7 @@ import config
 
 screen = create_screen()
 
-cycle = CycleAll(screen, 10, 0)
+cycle = CycleAll(screen, 20, 0.1)
 cycle.start()
 
 while True:
