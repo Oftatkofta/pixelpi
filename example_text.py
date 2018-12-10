@@ -1,15 +1,18 @@
+import time
+import string
+
+import pygame
+
 from screenfactory import create_screen
 from modules.text_scroller import TextScroller
+from helpers import Color
 import config
-import time
-import pygame
-import string
 
 screen = create_screen()
 
-text = 'Hello world, you are... sometimes cruel!' + string.printable
+text = string.printable
 
-scroller = TextScroller(screen, text)
+scroller = TextScroller(screen, text, color=Color(0, 255, 0), speed=0.01, y_position=0)
 scroller.start()
 
 while True:

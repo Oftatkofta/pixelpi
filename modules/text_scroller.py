@@ -1,21 +1,44 @@
-
-from helpers import Color, Point
-from modules import Module
-from PIL import Image
 import os
 import string
 import time
 
+from PIL import Image
 
+from modules import Module
+from helpers import Color, Point
 
 
 class TextScroller(Module):
+    #TODO find bug that replaces space with ~
+    """
+    Scrolls a text across the screen, defaults to a 3x7 pixel font.
 
-    def __init__(self, screen, text, fontfile="3x7_font_printable.bmp"):
+    text: An ASCII text
+    color: Color of text
+    speed: sleeptime between frame updates, lower is faster
+    y_position: y position of the top of the text
+    fontfile: an image file of the font to be displayed, loaded from pixelpi/fonts/
+            It is expected to be monospaced with 1 pixel between characters
+            characters should appear in the same order as in string.printable.
+    letter_width: width of letters in pixels
+    letter_height: height of letters in pixels
+
+    """
+
+    def __init__(self, screen, text, color=Color(255,255,255), speed=0.1, y_position=4,
+                 fontfile="3x7_font_printable.bmp", letter_width=3, letter_height=7):
+
         super(TextScroller, self).__init__(screen)
         self.text = text
+        self.color = color
+        self.speed = speed
+        self.y_position = y_position
         self.font = self.load_font(fontfile)
-        self.textstrip_width = len(self.text)*4 #Length of text in pixels, 4 px per letter incl 1 px padding
+        self.letter_width = letter_width
+        self.letter_height = letter_height
+
+        # Width of text in pixels, incl 1 px padding between letters
+        self.textstrip_width = len(self.text)*(self.letter_width + 1)
         self.textstrip_position = -16 #Where the left side of the screen is in relation to the textstrip
 
 
@@ -31,7 +54,7 @@ class TextScroller(Module):
 
         return font
 
-    def draw_letter(self, letter, pos, color=Color(255, 255, 255), letter_width=3, letter_height=7):
+    def draw_letter(self, letter, pos):
         """
         Crops a letter from the chosen font and draws it at a defined position
         the font is expected to be monospaced with 1 pixel between characters
@@ -42,30 +65,30 @@ class TextScroller(Module):
         Args:
         	letter: letter to draw (ASCII)
         	pos: position to draw letter
-        	color:
-        	letter_width:
-        	letter_height:
 
         Returns:
                 None
 
         """
 
-        if (pos.x+letter_width) < 0 or pos.x > 15:
+        if (pos.x + self.letter_width) < 0 or pos.x > 15:
             raise IndexError("Letter outside screen!")
-        if (pos.y+letter_height) < 0 or pos.y > 15:
+        if (pos.y + self.letter_height) < 0 or pos.y > 15:
             raise IndexError("Letter outside screen!")
 
         index = string.printable.find(letter)
 
         #Turn all whitespace and non-ascii characters in to space
-        if index > 95 or index == -1:
+        if index > 94 or index == -1:
             index = 95
 
-        crop_x = index * (letter_width + 1) + 1
+        if letter == " ":
+            index = 95
+
+        crop_x = index * (self.letter_width + 1)
         crop_y = 1
 
-        crop_box = (crop_x, crop_y, crop_x + letter_width+1, letter_height+1)
+        crop_box = (crop_x, crop_y, crop_x + self.letter_width+1, self.letter_height+1)
         letter_img = self.font.crop(crop_box)
 
         for x in range(letter_img.size[0]):
@@ -73,16 +96,16 @@ class TextScroller(Module):
                 pixel = letter_img.getpixel((x,y))
                 if pixel != (0, 0, 0):
                     try:
-                        self.screen.pixel[pos.x + x][pos.y + y] = color
+                        self.screen.pixel[pos.x + x][pos.y + y] = self.color
                     except IndexError:
                         #to allow scrolling across the screen
                         pass
 
 
-    def draw_text(self, color=Color(255,255,255), y_position=4):
+    def draw_text(self):
         visible_letters = self.get_visible_letters()
         for l in visible_letters:
-            self.draw_letter(l[0], Point(l[1], y_position), color)
+            self.draw_letter(l[0], Point(l[1], self.y_position))
 
     def get_visible_letters(self):
         """
@@ -98,8 +121,9 @@ class TextScroller(Module):
             pos = self.textstrip_position + x
             if 0 <= pos <= self.textstrip_width:
 
-                i = pos // 4
-                print(pos, i)
+                i = pos // (self.letter_width + 1)
+
+                #print(pos, i)
                 if (last_i != i) and not i > (len(self.text)-1):
                     out.append((self.text[i], x))
                     last_i = i
@@ -118,4 +142,4 @@ class TextScroller(Module):
         if self.textstrip_position > self.textstrip_width:
             self.textstrip_position = -16
             time.sleep(1)
-        time.sleep(0.1)
+        time.sleep(self.speed)
