@@ -1,6 +1,6 @@
 import time
 import datetime
-from helpers import Color
+from helpers import Color, Point
 from modules import Module
 from PIL import Image
 import os
