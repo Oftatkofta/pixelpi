@@ -1,6 +1,6 @@
-from .animation import *
-from .clock2 import *
-from .still_image import *
+from .animation import Animation
+from .clock2 import Clock2
+from .still_image import StillImage
 import time
 import os
 import random
@@ -89,16 +89,16 @@ class CycleAll(Module):
 
         index = self.index_history[self.history_position]
 
-        if self.display_objects[index] == None:
+        if self.display_objects[index] is None:
 
             if self.items_to_load[index][1] == "StillImage":
-                print("Loading StillImage {}".format(self.items_to_load[index][0]))
+                print(f"Loading StillImage {self.items_to_load[index][0]}")
                 self.display_objects[index] = StillImage(self.screen,
                                                          self.items_to_load[index][0],
                                                          fadetime=self.fadetime)
 
             if self.items_to_load[index][1] == "Animation":
-                print("Loading Animation {}".format(self.items_to_load[index][0]))
+                print(f"Loading Animation {self.items_to_load[index][0]}")
                 self.display_objects[index] = Animation(self.screen,
                                                         self.items_to_load[index][0],
                                                         autoplay=False,
@@ -108,8 +108,8 @@ class CycleAll(Module):
 
     def next(self, pick_clock=False, pick_random=True):
 
-        if self.get_current_animation() != None:
-            self.get_current_animation().stop()
+        if self.get_current_animation != None:
+            self.get_current_animation.stop()
 
         if len(self.index_history) > 100:
             # Don't save an infinite history, 50-100 items seems reasonable
@@ -131,7 +131,7 @@ class CycleAll(Module):
         self.history_position += 1
         self.index_history.append(index)
 
-        self.get_current_animation().start()
+        self.get_current_animation.start()
 
     def tick(self):
         if not self.paused and time.time() > self.next_animation:
@@ -151,24 +151,24 @@ class CycleAll(Module):
         time.sleep(0.1)
 
     def on_stop(self):
-        if self.get_current_animation() != None:
-            self.get_current_animation().stop()
+        if self.get_current_animation != None:
+            self.get_current_animation.stop()
 
     def key_press(self, key):
         if key == input.Key.RIGHT:
             self.next(pick_random=False)
         if key == input.Key.LEFT:
             if self.history_position > 0:
-                self.get_current_animation().stop()
+                self.get_current_animation.stop()
                 self.history_position -= 1
-                self.get_current_animation().start()
+                self.get_current_animation.start()
         if key == input.Key.A or key == input.Key.ENTER:
             self.paused = not self.paused
             if not self.paused:
                 self.next_animation = time.time() + self.interval
-            self.get_current_animation().stop()
+            self.get_current_animation.stop()
             icon = Animation(self.screen,
                              "icons/pause" if self.paused else "icons/play",
                              interval=800, autoplay=False)
             icon.play_once()
-            self.get_current_animation().start()
+            self.get_current_animation.start()
