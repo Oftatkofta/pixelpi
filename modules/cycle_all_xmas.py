@@ -13,6 +13,7 @@ from modules.still_image import StillImage
 from helpers import Color, Point
 from color_palettes.color_palettes import bw, firenze, colorcombo210
 
+text1 = "TestText for XMAS!"
 
 class CycleAllXmas(Module):
     """
@@ -30,13 +31,18 @@ class CycleAllXmas(Module):
         self.fadetime = fadetime
         self.modules_to_load = ["Text1", "Text2", "Fire", "Langton", "Pie", "StillImage", "Animation"]
 
-        #Preloads the persistent modules that remember their states
+        #Makes Stills and animations more likely TODO write probability direcly
+        self.modules_to_load.extend(["StillImage"] * 5)
+        self.modules_to_load.extend(["Animation"] * 5)
+
+        #Preloads the procedural modules that remember their states
         self.clock = Clock2(self.screen, fadetime=self.fadetime)
-        self.text1 = TextScroller(self.screen, "THIS IS TEXT 1!", color=Color(255, 255, 255), speed=0.2)
-        self.text2 = TextScroller(self.screen, "GITHUB: Oftatkofta/pixelpi", color=Color(255, 0, 0), speed=0.1, y_position=9)
+        self.text1 = TextScroller(self.screen, text1, color=Color(255, 255, 255), speed=0.1)
+        self.text2 = TextScroller(self.screen, "GITHUB: Oftatkofta/pixelpi", color=Color(255, 0, 0), speed=0.05, y_position=9)
         self.fire = Fire(self.screen)
         self.pie = Pie(self.screen)
 
+        #Keeps track of animations and stills in lists
         self.animation_subfolders = self.load_subfolders("animations")
         self.still_filenames = self.load_filenames("gallery")
 
@@ -122,6 +128,7 @@ class CycleAllXmas(Module):
             return LangtonsAnt(self.screen, antcolor=Color(255, 0, 0), rule=rule, colorlist=colorlist)
 
         if modulename == "Pie":
+            self.when_to_pick_next_module -= self.interval / 4.0
             return self.pie
 
         if modulename == "StillImage":
@@ -161,7 +168,9 @@ class CycleAllXmas(Module):
             self.pick_clock_flag = not self.pick_clock_flag
             self.total_displays += 1
 
-            print("Tick, total displays: {}, pick clock: {}".format(self.total_displays, self.pick_clock_flag))
+            print("Tick, total displays: {}, pick clock: {}, module to load {}".format(self.total_displays,
+                                                                                       self.pick_clock_flag,
+                                                                                       self.module_to_load))
 
         time.sleep(0.01)
 
