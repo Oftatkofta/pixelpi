@@ -1,9 +1,11 @@
+import random
 import time
-from helpers import *
+
+from helpers import Color, Point
 from modules import Module
-from itertools import cycle, islice
+from itertools import cycle
 from color_palettes import color_palettes
-import os
+
 
 
 class LangtonsAnt(Module):
@@ -14,9 +16,10 @@ class LangtonsAnt(Module):
     On white turn right, on black turn left, flip the color of the square
     """
 
-    def __init__(self, screen, start_position=Point(randint(0, 15), randint(0, 15)),
+    def __init__(self, screen, start_position=Point(random.randint(0, 15), random.randint(0, 15)),
                  antcolor=Color(255, 0, 0), rule="RLLRL", colorlist=color_palettes.firenze(),
                  clear_screen=True):
+
         super(LangtonsAnt, self).__init__(screen)
 
         self.position = start_position
