@@ -28,11 +28,12 @@ class CycleAllXmas(Module):
 
         self.interval = interval
         self.fadetime = fadetime
-        self.modules_to_load = ["Text", "Fire", "Langton", "Pie", "StillImage", "Animation"]
+        self.modules_to_load = ["Text1", "Text2", "Fire", "Langton", "Pie", "StillImage", "Animation"]
 
         #Preloads the persistent modules that remember their states
         self.clock = Clock2(self.screen, fadetime=self.fadetime)
-        self.text1 = TextScroller(self.screen, "THIS IS TEXT 1!")
+        self.text1 = TextScroller(self.screen, "THIS IS TEXT 1!", color=Color(255, 255, 255), speed=0.2)
+        self.text2 = TextScroller(self.screen, "GITHUB: Oftatkofta/pixelpi", color=Color(255, 0, 0), speed=0.1, y_position=9)
         self.fire = Fire(self.screen)
         self.pie = Pie(self.screen)
 
@@ -98,8 +99,12 @@ class CycleAllXmas(Module):
         if modulename == "Clock":
             return self.clock
 
-        if modulename == "Text":
+        if modulename == "Text1":
             return self.text1
+
+        if modulename == "Text2":
+            self.when_to_pick_next_module -= self.interval / 2.0
+            return self.text2
 
         if modulename == "Fire":
             return self.fire

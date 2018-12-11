@@ -7,7 +7,7 @@ import config
 
 screen = create_screen()
 
-cycle = CycleAllXmas(screen, 0.5, 0.1)
+cycle = CycleAllXmas(screen, 5, 0.1)
 cycle.start()
 
 while True:
