@@ -13,7 +13,9 @@ from modules.still_image import StillImage
 from helpers import Color, Point
 from color_palettes.color_palettes import bw, firenze, colorcombo210
 
-text1 = "TestText for XMAS!"
+text1 = "US20160168579A1 --> TGACGTCGTAACATACTGGCTATAGCTTAGTGCTGATAGGCTATAGGCTAGTTGCGTTCCCTACTGTGATAAATAAGTTAGTGCATTGAG"
+text2 = "GITHUB: Oftatkofta/pixelpi"
+text3 = "MERRY CHRISTMAS HUMANS!"
 
 class CycleAllXmas(Module):
     """
@@ -29,7 +31,7 @@ class CycleAllXmas(Module):
 
         self.interval = interval
         self.fadetime = fadetime
-        self.modules_to_load = ["Text1", "Text2", "Fire", "Langton", "Pie", "StillImage", "Animation"]
+        self.modules_to_load = ["Text3", "Text2", "Fire", "Langton", "Pie", "StillImage", "Animation"]
 
         #Makes Stills and animations more likely TODO write probability direcly
         self.modules_to_load.extend(["StillImage"] * 5)
@@ -37,8 +39,11 @@ class CycleAllXmas(Module):
 
         #Preloads the procedural modules that remember their states
         self.clock = Clock2(self.screen, fadetime=self.fadetime)
-        self.text1 = TextScroller(self.screen, text1, color=Color(255, 255, 255), speed=0.1)
-        self.text2 = TextScroller(self.screen, "GITHUB: Oftatkofta/pixelpi", color=Color(255, 0, 0), speed=0.05, y_position=9)
+
+        self.text1 = TextScroller(self.screen, text1, color=Color(255, 0, 0), speed=0.15)
+        self.text2 = TextScroller(self.screen, text2, color=Color(255, 255, 255), speed=0.05, y_position=9)
+        self.text3 = TextScroller(self.screen, text3, color=Color(0, 0, 255), speed=0.05, y_position=0)
+
         self.fire = Fire(self.screen)
         self.pie = Pie(self.screen)
 
@@ -49,7 +54,7 @@ class CycleAllXmas(Module):
         self.when_to_pick_next_module = time.time()
         self.total_displays = 0
 
-        self.pick_clock_flag = False
+        self.pick_cypher_flag = False
         self.module_to_load = self.pick_module()
 
         #Holds the currently loaded module
@@ -94,23 +99,25 @@ class CycleAllXmas(Module):
         :return:
             (str) Name of Module to load
         """
-        if not self.pick_clock_flag:
+        if not self.pick_cypher_flag:
             return random.choice(self.modules_to_load)
 
         else:
-            return "Clock"
+            return "Text1"
 
     def load_module(self, modulename):
 
         if modulename == "Clock":
             return self.clock
 
-        if modulename == "Text1":
-            return self.text1
+        if modulename == "Text3":
+            return self.text3
 
         if modulename == "Text2":
-            self.when_to_pick_next_module -= self.interval / 2.0
             return self.text2
+
+        if modulename == "Text1":
+            return self.text1
 
         if modulename == "Fire":
             return self.fire
@@ -148,32 +155,26 @@ class CycleAllXmas(Module):
     def next(self):
 
         self.get_current_module().stop()
-
         self.module_to_load = self.pick_module()
         self.current_module = self.load_module(self.module_to_load)
-
         self.get_current_module().start()
 
     def tick(self):
         if time.time() > self.when_to_pick_next_module:
 
             self.next()
+            self.when_to_pick_next_module += self.interval
 
-            if self.pick_clock_flag:
-                self.when_to_pick_next_module += self.interval / 2.0
+            if self.total_displays % 4 == 0:
+                self.pick_cypher_flag = not self.pick_cypher_flag
 
-            else:
-                self.when_to_pick_next_module += self.interval
-
-            self.pick_clock_flag = not self.pick_clock_flag
             self.total_displays += 1
 
-            print("Tick, total displays: {}, pick clock: {}, module to load {}".format(self.total_displays,
-                                                                                       self.pick_clock_flag,
+            print("Tick, total displays: {}, pick cypher: {}, module to load: {}".format(self.total_displays,
+                                                                                       self.pick_cypher_flag,
                                                                                        self.module_to_load))
-
         time.sleep(0.01)
 
     def on_stop(self):
-        if self.get_current_module() != None:
+        if self.get_current_module() is not None:
             self.get_current_module().stop()

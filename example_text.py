@@ -10,7 +10,7 @@ import config
 
 screen = create_screen()
 
-text = string.printable
+text = "US20160168579A1 --> TGACGTCGTAACATACTGGCTATAGCTTAGTGCTGATAGGCTATAGGCTAGTTGCGTTCCCTACTGTGATAAATAAGTTAGTGCATTGAG"
 
 scroller = TextScroller(screen, text, color=Color(0, 255, 0), speed=0.1, y_position=9)
 scroller.start()
