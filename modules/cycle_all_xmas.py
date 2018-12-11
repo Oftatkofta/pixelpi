@@ -40,9 +40,9 @@ class CycleAllXmas(Module):
         #Preloads the procedural modules that remember their states
         self.clock = Clock2(self.screen, fadetime=self.fadetime)
 
-        self.text1 = TextScroller(self.screen, text1, color=Color(255, 0, 0), speed=0.15)
-        self.text2 = TextScroller(self.screen, text2, color=Color(255, 255, 255), speed=0.05, y_position=9)
-        self.text3 = TextScroller(self.screen, text3, color=Color(0, 0, 255), speed=0.05, y_position=0)
+        self.text1 = TextScroller(self.screen, text1, color=Color(255, 0, 0), speed=0.2)
+        self.text2 = TextScroller(self.screen, text2, color=Color(255, 255, 255), speed=0.1, y_position=9)
+        self.text3 = TextScroller(self.screen, text3, color=Color(0, 0, 255), speed=0.1, y_position=0)
 
         self.fire = Fire(self.screen)
         self.pie = Pie(self.screen)
