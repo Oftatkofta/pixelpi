@@ -1,4 +1,4 @@
-from helpers import *
+from helpers import Color
 
 def firenze():
 	out = [Color(70, 137, 102),
