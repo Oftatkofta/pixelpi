@@ -54,7 +54,7 @@ class CycleAllXmas(Module):
         self.when_to_pick_next_module = time.time()
         self.total_displays = 0
 
-        self.pick_cypher_flag = False
+        self.pick_clock_flag = False
         self.module_to_load = self.pick_module()
 
         #Holds the currently loaded module
@@ -99,11 +99,11 @@ class CycleAllXmas(Module):
         :return:
             (str) Name of Module to load
         """
-        if not self.pick_cypher_flag:
+        if not self.pick_clock_flag:
             return random.choice(self.modules_to_load)
 
         else:
-            return "Text1"
+            return "Clock"
 
     def load_module(self, modulename):
 
@@ -166,13 +166,13 @@ class CycleAllXmas(Module):
             self.when_to_pick_next_module += self.interval
 
             if self.total_displays % 4 == 0:
-                self.pick_cypher_flag = not self.pick_cypher_flag
+                self.pick_clock_flag = not self.pick_clock_flag
 
             self.total_displays += 1
 
             print("Tick, total displays: {}, pick cypher: {}, module to load: {}".format(self.total_displays,
-                                                                                       self.pick_cypher_flag,
-                                                                                       self.module_to_load))
+                                                                                         self.pick_clock_flag,
+                                                                                         self.module_to_load))
         time.sleep(0.01)
 
     def on_stop(self):
