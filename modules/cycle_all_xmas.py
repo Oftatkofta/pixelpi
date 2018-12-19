@@ -165,8 +165,9 @@ class CycleAllXmas(Module):
             self.next()
             self.when_to_pick_next_module += self.interval
 
-            if self.total_displays % 4 == 0:
+            if self.total_displays % 5 == 0:
                 self.pick_clock_flag = not self.pick_clock_flag
+                self.when_to_pick_next_module -= self.interval / 2
 
             self.total_displays += 1
 
