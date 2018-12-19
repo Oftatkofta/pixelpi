@@ -23,3 +23,12 @@ def colorcombo210():
 	       Color(91, 114, 144)]
 
 	return out
+
+def fire():
+	out = [
+	Color(0, 0, 0),
+	Color(198, 101, 0),
+	Color(255, 191, 0),
+	Color(255, 255, 255)]
+
+	return out

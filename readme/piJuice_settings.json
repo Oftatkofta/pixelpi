@@ -1,0 +1,65 @@
+{
+  "system_events": {
+    "low_battery_voltage": {
+      "function": "SYS_FUNC_HALT_POW_OFF",
+      "enabled": true
+    },
+    "low_charge": {
+      "function": "NO_FUNC",
+      "enabled": true
+    },
+    "button_power_off": {
+      "function": "USER_FUNC1",
+      "enabled": false
+    },
+    "forced_power_off": {
+      "function": "USER_FUNC2",
+      "enabled": false
+    },
+    "no_power": {
+      "function": "SYS_FUNC_HALT_POW_OFF",
+      "enabled": true
+    },
+    "forced_sys_power_off": {
+      "function": "USER_FUNC3",
+      "enabled": false
+    },
+    "watchdog_reset": {
+      "function": "USER_EVENT",
+      "enabled": false
+    }
+  },
+  "user_functions": {
+    "USER_FUNC8": "",
+    "USER_FUNC1": "",
+    "USER_FUNC2": "",
+    "USER_FUNC3": "",
+    "USER_FUNC4": "",
+    "USER_FUNC5": "",
+    "USER_FUNC6": "",
+    "USER_FUNC7": ""
+  },
+  "system_task": {
+    "watchdog": {
+      "enabled": false,
+      "period": "60"
+    },
+    "min_bat_voltage": {
+      "threshold": "1",
+      "enabled": true
+    },
+    "min_charge": {
+      "threshold": "1",
+      "enabled": true
+    },
+    "enabled": true,
+    "wakeup_on_charge": {
+      "enabled": true,
+      "trigger_level": "1"
+    },
+    "ext_halt_power_off": {
+      "enabled": true,
+      "period": "30"
+    }
+  }
+}

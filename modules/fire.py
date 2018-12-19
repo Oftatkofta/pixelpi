@@ -1,6 +1,5 @@
 import time
-import math
-from helpers import *
+from helpers import Color
 from modules import Module
 from noise import snoise2
 
