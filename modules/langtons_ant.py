@@ -10,7 +10,7 @@ from color_palettes import color_palettes
 
 class LangtonsAnt(Module):
     """
-    Implemets Langton's ant on a toroidal grid (top-bottom, left-righ wrapping)
+    Implemets Langton's ant on a toroidal grid (top-bottom, left-right wrapping)
 
     The rules are:
     On white turn right, on black turn left, flip the color of the square
@@ -27,15 +27,30 @@ class LangtonsAnt(Module):
         self.antcolor = antcolor
 
         self.rule = list(rule)
-        self.colors = colorlist[:len(self.rule)]
-        self.color_cycle = cycle(self.colors)
-        next(self.color_cycle)
+        self.colors = colorlist[:len(self.rule)] #one turn per color
 
+
+        if not clear_screen:
+            """
+            If we don't clear the screen we need to make sure that there is a turn associated with each
+            color used so the ant has a rule for each color it may encounter.
+            """
+            self.colors = self.screen.get_colorlist()
+            print(self.colors)
+            rule_generator = cycle(self.rule)
+            while len(self.colors) > len(self.rule):
+                self.rule.append(next(rule_generator))
+        else:
+            self.screen.clear_pixel(next(self.color_cycle))
+        print(self.rule)
+        # cycle the colors
+        self.color_cycle = cycle(self.colors)
+
+        next(self.color_cycle) #start the cycle
+
+        #rulebook is a dict with color:(L/R, next_color)
         self.rulebook = dict(list(zip(self.colors,
                                  list(zip(self.rule, self.color_cycle)))))
-
-        if clear_screen:
-            self.screen.clear_pixel(next(self.color_cycle))
 
     def get_pixel_color(self, point):
         return self.screen.pixel[point.x][point.y]
@@ -158,4 +173,31 @@ class LangtonsAnt(Module):
     def tick(self):
         #self.blink(3)
         self.step()
-# self.blink()
+
+if __name__ == "__main__":
+    from modules.fire import Fire
+    from screen.virtualscreen import VirtualScreen
+    from color_palettes.color_palettes import bw, firenze, colorcombo210
+    import pygame
+
+    screen = VirtualScreen()
+
+    rule_length = random.randint(2, 12)
+    rule = ""
+    for i in range(rule_length):
+        rule += random.choice("RL")
+
+    colorlist = random.choice([bw(), firenze(), colorcombo210()])
+
+    print("Langton with rule {} and color: ".format(rule, colorlist))
+    still = Fire(screen)
+    still.start()
+    time.sleep(2)
+    #still.stop()
+    langton = LangtonsAnt(screen, antcolor=Color(255, 0, 0), rule=rule, colorlist=colorlist, clear_screen=False)
+    langton.start()
+
+    while True:
+        pygame.time.wait(10)
+        for event in pygame.event.get():
+            pass
