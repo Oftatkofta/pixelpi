@@ -8,6 +8,9 @@ Games and Animations on 16x16 LEDs
 This is a collection of python scripts that run animations and games on a 16x16 matrix of WS2812B LEDs (aka Neopixel).
 The project is inspired by and compatible to Jeremy Williams' [Game Frame](http://ledseq.com).
 
+The code has also been ported to Python 3.
+
+
 ## Hardware
 
 Since I'm cheap I only buy what I absolutely have to. One of those things was laser cut cardboard inserts, because it is impossible to get right by hand (I tried...a lot). My original plan was to manually cut the PVC board for this, but it has to be completely straight, otherwise it just looks bad. The grid design .pdf file is available in the /readme directory of the repo.
@@ -27,13 +30,19 @@ Since I'm cheap I only buy what I absolutely have to. One of those things was la
 - Wire, solder, hot glue, capacitors, etc
 - PiJuice HAT 54.98 GBP 
 
+UPDATE 2019
+
+I have made a nice wooden frame from oak.
+
+![Nice wooden frame](https://github.com/Oftatkofta/pixelpi/blob/master/readme/wood_frame.jpg)
+
 
 ### LED strips
 
 I recommend you use [this tutorial](https://learn.adafruit.com/neopixels-on-raspberry-pi/overview) to set up the LED hardware.
 Make sure you install [rpi_ws281x](https://github.com/jgarff/rpi_ws281x.git) as explained in the tutorial.
 
-Then copy this repository somewhere to the SD card, copy your andimations to the sd card and run a script.
+Then copy this repository somewhere to the SD card, copy your animations to the sd card and run a script.
 
 You can edit the `Screen.py` file to default to the LED strip settings you used in the neopixel tutorial (especially pin and brightness).
 
@@ -49,6 +58,10 @@ The `Screen.py` script expects your LED strip to be laid out like this:
 ...
 ```
 
+Although there is now the possibility to hard code a different rotation in screen.py.
+
+
+
 ![LED layout](https://github.com/Oftatkofta/pixelpi/blob/master/readme/top_LEDs.jpg)
 
 If you have a different setup, you can edit the `Screen.py` file to translate the 16x16 matrix on your LED strip.
@@ -61,7 +74,7 @@ Power is running through copper pins tying two strips together on the front and 
 
 To set up the software, clone this repository on your Raspberry Pi. Rename the file `config.ini.example` to `config.ini`.
 Make sure, the neopixel, pillow(PIL), noise (for fire module), and Pygame libraries are installed.
-This project uses Python 2.7.
+This project uses Python 3.
 
 ### Animations
 Place your animations in a folder called `animations` in the repository. For each animation, a file `/animations/animation_name/0.bmp` should exist.
@@ -85,10 +98,11 @@ You can test all software without a Raspberry Pi, Gamepad or LED matrix. To do s
 - PNG images
 - PIL/Pillow backend for image handling
 - automatic image resizing
-- a new funky 24-hour clock module
+- a new funky 24-hour clock module with a binary representation (pictured above)
 - horizontal animation images
 - [Langton's Ant](https://en.wikipedia.org/wiki/Langton%27s_ant) Module
 - a 3x7 monospaced font for text and numbers
+- FPS test
 
 ###TODO's:
 - automatic animation loading from sprite sheets

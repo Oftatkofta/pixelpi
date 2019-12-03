@@ -175,7 +175,7 @@ class LangtonsAnt(Module):
         self.step()
 
 if __name__ == "__main__":
-    from modules.fire import Fire
+    from modules.still_image import StillImage
     from screen.virtualscreen import VirtualScreen
     from color_palettes.color_palettes import bw, firenze, colorcombo210
     import pygame
@@ -186,11 +186,11 @@ if __name__ == "__main__":
     rule = ""
     for i in range(rule_length):
         rule += random.choice("RL")
-
+    rule = "RL"
     colorlist = random.choice([bw(), firenze(), colorcombo210()])
 
     print("Langton with rule {} and color: ".format(rule, colorlist))
-    still = Fire(screen)
+    still = StillImage(screen, r"C:\Users\Jens\Documents\Code\pixelpi\gallery\pirate.bmp")
     still.start()
     time.sleep(2)
     #still.stop()
