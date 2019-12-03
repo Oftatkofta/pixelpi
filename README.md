@@ -34,7 +34,7 @@ UPDATE 2019
 
 I have made a nice wooden frame from oak.
 
-![Nice wooden frame](https://github.com/Oftatkofta/pixelpi/blob/master/readme/wood_frame.jpg)
+![Nice wooden frame](https://github.com/Oftatkofta/pixelpi/blob/python3/readme/wood_frame.jpg)
 
 
 ### LED strips
