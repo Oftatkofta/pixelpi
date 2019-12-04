@@ -29,6 +29,8 @@ class LangtonsAnt(Module):
         self.rule = list(rule)
         self.colors = colorlist[:len(self.rule)] #one turn per color
 
+        # cycle the colors
+        self.color_cycle = cycle(self.colors)
 
         if not clear_screen:
             """
@@ -42,10 +44,8 @@ class LangtonsAnt(Module):
                 self.rule.append(next(rule_generator))
         else:
             self.screen.clear_pixel(next(self.color_cycle))
-        print(self.rule)
-        # cycle the colors
-        self.color_cycle = cycle(self.colors)
 
+        print(self.rule)
         next(self.color_cycle) #start the cycle
 
         #rulebook is a dict with color:(L/R, next_color)

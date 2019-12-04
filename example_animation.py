@@ -1,10 +1,10 @@
-from .screenfactory import create_screen
-from .modules.animation import *
-from . import config
+from screenfactory import create_screen
+from modules.animation import *
+import config
 
 screen = create_screen()
 
-animation = Animation(screen, "animations/punksprite")
+animation = Animation(screen, "animations/crypto")
 while True:
 	if config.virtual_hardware:
 		pygame.time.wait(10)

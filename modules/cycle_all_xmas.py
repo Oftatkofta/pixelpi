@@ -13,9 +13,9 @@ from modules.still_image import StillImage
 from helpers import Color, Point
 from color_palettes.color_palettes import bw, firenze, colorcombo210
 
-text1 = "US20160168579A1 --> TGACGTCGTAACATACTGGCTATAGCTTAGTGCTGATAGGCTATAGGCTAGTTGCGTTCCCTACTGTGATAAATAAGTTAGTGCATTGAG"
+text1 = "2019 SELLIN LAB + U-PRINT X-MAS CRYPTO CHALLENGE"
 text2 = "GITHUB: Oftatkofta/pixelpi"
-text3 = "MERRY CHRISTMAS HUMANS!"
+text3 = "MERRY CHRISTMAS HUMANS, WIN GLORY NOW!!!"
 
 class CycleAllXmas(Module):
     """
@@ -26,16 +26,17 @@ class CycleAllXmas(Module):
     fadetime: Time of transition fade in seconds
     """
 
-    def __init__(self, screen, interval=20, fadetime=0.1):
+    def __init__(self, screen, interval=30, fadetime=0.1):
         super(CycleAllXmas, self).__init__(screen)
 
         self.interval = interval
         self.fadetime = fadetime
-        self.modules_to_load = ["Text3", "Text2", "Fire", "Langton", "Pie", "StillImage", "Animation"]
+        self.modules_to_load = ["Text3", "Text2", "Fire", "Langton", "Pie", "StillImage", "Animation", "Crypto"]
 
-        #Makes Stills and animations more likely TODO write probability direcly
+        #Makes Stills and animations and crypto more likely TODO write probability direcly
         self.modules_to_load.extend(["StillImage"] * 5)
         self.modules_to_load.extend(["Animation"] * 5)
+        self.modules_to_load.extend(["Crypto"] * 2) # 3/20 = 15%
 
         #Preloads the procedural modules that remember their states
         self.clock = Clock2(self.screen, fadetime=self.fadetime)
@@ -46,6 +47,7 @@ class CycleAllXmas(Module):
 
         self.fire = Fire(self.screen)
         self.pie = Pie(self.screen)
+
 
         #Keeps track of animations and stills in lists
         self.animation_subfolders = self.load_subfolders("animations")
@@ -107,7 +109,12 @@ class CycleAllXmas(Module):
 
     def load_module(self, modulename):
 
+        if modulename == "Crypto":
+            self.when_to_pick_next_module += 31
+            return Animation(self.screen, "animations/crypto", fadetime=2)
+
         if modulename == "Clock":
+            self.pick_clock_flag = not self.pick_clock_flag
             return self.clock
 
         if modulename == "Text3":
@@ -171,7 +178,7 @@ class CycleAllXmas(Module):
 
             self.total_displays += 1
 
-            print("Tick, total displays: {}, pick cypher: {}, module to load: {}".format(self.total_displays,
+            print("Tick, total displays: {}, pick clock: {}, module to load: {}".format(self.total_displays,
                                                                                          self.pick_clock_flag,
                                                                                          self.module_to_load))
         time.sleep(0.01)
