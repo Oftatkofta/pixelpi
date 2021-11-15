@@ -39,7 +39,7 @@ class TextScroller(Module):
 
         # Width of text in pixels, incl 1 px padding between letters
         self.textstrip_width = len(self.text)*(self.letter_width + 1)
-        self.textstrip_position = -16 #Where the left side of the screen is in relation to the textstrip
+        self.textstrip_position = -self.screen.width #Where the left side of the screen is in relation to the textstrip
 
 
 
@@ -71,9 +71,9 @@ class TextScroller(Module):
 
         """
 
-        if (pos.x + self.letter_width) < 0 or pos.x > 15:
+        if (pos.x + self.letter_width) < 0 or pos.x > (self.screen.width-1):
             raise IndexError("Letter outside screen!")
-        if (pos.y + self.letter_height) < 0 or pos.y > 15:
+        if (pos.y + self.letter_height) < 0 or pos.y > (self.screen.height-1):
             raise IndexError("Letter outside screen!")
 
         index = string.printable.find(letter)
@@ -82,7 +82,7 @@ class TextScroller(Module):
         if index > 94 or index == -1:
             index = 95
 
-        if letter == " ":
+        if letter == ' ':
             index = 95
 
         crop_x = index * (self.letter_width + 1)
@@ -117,17 +117,17 @@ class TextScroller(Module):
         out=[]
         last_i = None
 
-        for x in range(self.screen.width):
+        for x in range(-(self.letter_width), self.screen.width):
             pos = self.textstrip_position + x
             if 0 <= pos <= self.textstrip_width:
 
-                i = pos // (self.letter_width + 1)
+                i = pos // (self.letter_width + 1) #index of letter in string
 
                 #print(pos, i)
                 if (last_i != i) and not i > (len(self.text)-1):
                     out.append((self.text[i], x))
                     last_i = i
-
+        print(out, self.textstrip_position)
         return out
 
 
@@ -140,6 +140,6 @@ class TextScroller(Module):
         self.draw()
         self.textstrip_position += 1
         if self.textstrip_position > self.textstrip_width:
-            self.textstrip_position = -16
+            self.textstrip_position = -self.screen.width
             time.sleep(1)
         time.sleep(self.speed)
