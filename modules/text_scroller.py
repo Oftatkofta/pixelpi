@@ -54,7 +54,7 @@ class TextScroller(Module):
 
         return font
 
-    def draw_letter(self, letter, pos):
+    def draw_letter(self, letter, pos, color=None):
         """
         Crops a letter from the chosen font and draws it at a defined position
         the font is expected to be monospaced with 1 pixel between characters
@@ -70,6 +70,8 @@ class TextScroller(Module):
                 None
 
         """
+        if color is None:
+            color=self.color
 
         if (pos.x + self.letter_width) < 0 or pos.x > (self.screen.width-1):
             raise IndexError("Letter outside screen!")
@@ -95,12 +97,10 @@ class TextScroller(Module):
             for y in range(letter_img.size[1]):
                 pixel = letter_img.getpixel((x,y))
                 if pixel != (0, 0, 0):
-                    try:
-                        self.screen.pixel[pos.x + x][pos.y + y] = self.color
-                    except IndexError:
-                        #to allow scrolling across the screen
-                        pass
-
+                    draw_x = pos.x + x
+                    draw_y = pos.y + y
+                    if (0 < draw_x < self.screen.width) and (0 < draw_y < self.screen.height):
+                        self.screen.pixel[pos.x + x][pos.y + y] = color
 
     def draw_text(self):
         visible_letters = self.get_visible_letters()
@@ -127,7 +127,7 @@ class TextScroller(Module):
                 if (last_i != i) and not i > (len(self.text)-1):
                     out.append((self.text[i], x))
                     last_i = i
-        print(out, self.textstrip_position)
+        
         return out
 
 
