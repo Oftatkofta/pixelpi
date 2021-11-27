@@ -144,3 +144,116 @@ class Animation(Module):
 			self.screen.pixel = frame
 			self.screen.update()
 			time.sleep(self.interval / 1000.0)
+
+
+class CropAnimation(Module):
+	def __init__(self, screen, folder, interval=None, autoplay=True, fadetime=1):
+		super(CropAnimation, self).__init__(screen)
+
+		if folder[:-1] != '/':
+			folder = folder + '/'
+
+		self.folder = folder
+		self.screen = screen
+		self.fadetime = fadetime
+
+		self.config = self.load_config()
+
+		if interval != None:
+			self.config["hold"] = int(interval)
+
+		"""
+		first try load config, if successful use it
+
+		determine if animation is horizontal or vertical
+		single_file AND (height == n*16 OR width == n*16):
+			translateX
+		"""
+		try:
+			self.load_single()
+
+		except Exception:
+			print(('Failed to load ' + folder))
+			raise
+
+		if self.fadetime != 0:
+			self.screen.fade_in(self.fadetime)
+		else:
+			self.screen.update()
+
+		self.pos = 0
+		if autoplay:
+			self.start()
+
+	def load_single(self):
+
+		self.img = Image.open(self.folder + '0.bmp')
+		self.frames = []
+		crop_x = 0
+		crop_y = 0
+		if self.img.size[1] >= self.img.size[0]:
+			framecount = int(self.img.size[1] / self.config["moveY"])
+			for index in range(framecount):
+
+				crop_box = (crop_x, crop_y, crop_x + self.screen.width, crop_y + self.screen.height)
+				crop_y += self.config["moveY"]
+
+				self.frames.append(self.img.crop(crop_box))
+		else:
+			framecount = int(self.img.size[0] / self.config["moveX"])
+			for index in range(framecount):
+
+				crop_box = (crop_x, crop_y, crop_x + self.screen.width, crop_y + self.screen.height)
+				crop_x += self.config["moveX"]
+
+				self.frames.append(crop_box)
+
+	def load_interval(self):
+		cfg = configparser.ConfigParser()
+		cfg.read(self.folder + 'config.ini')
+		return cfg.getint('animation', 'hold')
+
+	def load_config(self):
+		out = {}
+		cfg = configparser.ConfigParser()
+		try:
+			cfg.read(self.folder + "config.ini")
+			out["hold"] = cfg.getint("animation", "hold")
+			out["moveX"] = cfg.getint("translate", "moveX")
+			out["moveY"] = cfg.getint("translate", "moveY")
+			out["loop"] = cfg.getboolean("translate", "loop")
+			out["panoff"] = cfg.getboolean("translate", "panoff")
+			out["has_config"] = True
+
+		except:
+			print('No config found, using defaults')
+			out["hold"] = 100
+			out["moveX"] = 0
+			out["moveY"] = 0
+			out["loop"] = True
+			out["panoff"] = False
+			out["has_config"] = False
+
+		return out
+
+	def on_start(self):
+		print(('Starting ' + self.folder))
+
+	def on_stop(self):
+		if self.fadetime != 0:
+			self.screen.fade_out(self.fadetime)
+
+	def play_once(self):
+		for frame in self.frames:
+			self.screen.pixel = frame
+			self.screen.update()
+			time.sleep(self.interval / 1000.0)
+
+	def tick(self):
+		self.pos += 1
+		if self.pos >= len(self.frames):
+			self.pos = 0
+		self.screen.stage = self.img.crop(self.frames[self.pos])
+		self.screen.stage_to_pixels()
+		self.screen.update()
+		time.sleep(self.config["hold"] / 1000.0)

@@ -22,7 +22,7 @@ class AbstractScreen(object):
     def clear_stage(self):
         self.stage = Image.new("RGB", (self.width, self.height))
 
-    def stage(self):
+    def stage_to_pixels(self):
         #moves the pixels from the staging image to self.pixel
         for x in range(self.width):
             for y in range(self.height):

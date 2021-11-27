@@ -127,7 +127,7 @@ class TextScroller(Module):
                 if (last_i != i) and not i > (len(self.text)-1):
                     out.append((self.text[i], x))
                     last_i = i
-        
+
         return out
 
 

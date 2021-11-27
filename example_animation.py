@@ -1,10 +1,11 @@
 from screenfactory import create_screen
-from modules.animation import *
+from modules.animation import Animation, CropAnimation
 import config
+import pygame
 
 screen = create_screen()
 
-animation = Animation(screen, "animations/crypto")
+animation = CropAnimation(screen, "animations/crypto")
 while True:
 	if config.virtual_hardware:
 		pygame.time.wait(10)
