@@ -1,12 +1,13 @@
 import time
 import string
 
-import pygame
-
 from screenfactory import create_screen
 from modules.text_scroller import TextScroller
 from helpers import Color
 import config
+
+if config.virtual_hardware:
+	import pygame
 
 screen = create_screen()
 
