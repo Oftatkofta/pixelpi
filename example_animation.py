@@ -2,6 +2,7 @@ from screenfactory import create_screen
 from modules.animation import Animation, CropAnimation
 import config
 import pygame
+import time
 
 screen = create_screen()
 
