@@ -15,13 +15,22 @@ class VirtualScreen(AbstractScreen):
 
 		self.surface = pygame.Surface(self.screen.get_size())	
 
-	def update(self):
-		for y in range(self.height):
-			for x in range(self.width):
-				#colors are in GRB format on the LED strip, to display properly we need to convert to a RGB tuple
-				adjusted_color = helpers.int_to_rgb_color(self.pixel[x][y])
-				pygame.draw.rect(self.surface, adjusted_color, ((x * self.pixel_size, y * self.pixel_size), (((x+1) * self.pixel_size), (y+1) * self.pixel_size)))
+def update(self):
+    """
+    Updates the virtual screen by drawing the LED matrix to the Pygame surface and displaying it.
+    This method converts the internal GRB color format to RGB for proper display.
+    """
+    for event in pygame.event.get():
+        if event.type == pygame.VIDEORESIZE:
+            # Update the screen size
+            self.screen = pygame.display.set_mode(event.dict['size'], pygame.RESIZABLE)
+            self.surface = pygame.Surface(self.screen.get_size())
+    
+    for y in range(self.height):
+        for x in range(self.width):
+            # Convert GRB color format to RGB for display
+            adjusted_color = helpers.int_to_rgb_color(self.pixel[x][y])
+            pygame.draw.rect(self.surface, adjusted_color, ((x * self.pixel_size, y * self.pixel_size), (((x+1) * self.pixel_size), (y+1) * self.pixel_size)))
 
-		self.screen.blit(self.surface, (0, 0))
-		pygame.display.flip()
-		pygame.display.update()
+    self.screen.blit(self.surface, (0, 0))
+    pygame.display.flip()  # flip() is enough since we're updating the whole screen
