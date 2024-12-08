@@ -11,7 +11,7 @@ if config.virtual_hardware:
 
 screen = create_screen()
 
-text = "abcdef"
+text = "In a hole in the ground, there lived a Hobbit. Not a nasty, dirty, wet hole, filled with the ends of worms and an oozy smell, nor yet a dry, bare, sandy hole with nothing in it to sit down on or to eat: it was a hobbit-hole, and that means comfort."
 
 scroller = TextScroller(screen, text, color=Color(0, 255, 0), speed=0.1, y_position=4)
 scroller.start()
